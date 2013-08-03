@@ -1,0 +1,131 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generateModel2Java.
+ */]
+[module generateModel2Java('http://www.eclipse.org/uml2/4.0.0/UML')]
+[**
+ * The documentation of the template generateElement.
+ * @param aClass
+ */]
+[template public generateElement(model : Model)]
+[comment @main/]
+[for (pack : Package | model.ownedElement->select(oclIsTypeOf(Package)).oclAsType(Package))]
+[for (enum : Enumeration | pack.ownedElement->select(oclIsTypeOf(Enumeration)).oclAsType(Enumeration))]
+[file (pack.name+'/'+enum.name + '.java', false, 'UTF-8')]
+package [pack.name/];
+
+public enum [enum.name/]
+{
+	[enum.ownedLiteral.name->sep(', ')/];
+}
+[/file]
+[/for]
+[for (interface : Interface | pack.ownedElement->select(oclIsTypeOf(Interface)).oclAsType(Interface))]
+[file (pack.name+'/'+interface.name + '.java', false, 'UTF-8')]
+package [pack.name/];
+
+public interface [interface.name/]
+{
+[for (operation : Operation | interface.ownedOperation)]
+	[generateOperationHeader(operation)/];
+[/for]	
+}
+[/file]
+[/for]
+
+[for (class : Class | pack.ownedElement->select(oclIsTypeOf(Class))->union(pack.ownedElement->select(oclIsTypeOf(AssociationClass))).oclAsType(Class))]
+[generateClass(pack, class)/]
+[/for]
+
+[/for]
+
+[/template]
+
+[template public generateClass(pack : Package, class : Class)]
+[file (pack.name+'/'+class.name + '.java', false, 'UTF-8')]
+package [pack.name/];
+
+[for (import : Type | class.attribute.type->asSet())]
+[if not (import.getNearestPackage().name.toString()='PrimitiveTypes')]
+import [import.getNearestPackage().name/].[import.name/];
+[/if]
+[/for]
+[if (class.oclIsTypeOf(AssociationClass))]
+	[for (import : Property | class.oclAsType(AssociationClass).memberEnd->asSet())]
+	[if not (import.type.getNearestPackage().name.toString()='PrimitiveTypes')]
+import [import.type.getNearestPackage().name/].[import.type.name/];
+	[/if]
+	[/for]
+[/if]
+
+
+[comment import [class.attribute.getNearestPackage()->asSet().name->sep('; import ')/]
+public [if (class.isAbstract)]abstract [/if] class [class.name/][if not class.superClass->isEmpty()] extends [class.superClass.name->sep(',')/][/if]
+[if (not class.generalization.target->select(oclIsTypeOf(Interface))->isEmpty())] implements [for (interface : Interface | class.generalization.target->select(oclIsTypeOf(Interface)).oclAsType(Interface)) separator (', ')] [interface.name/] [/for][/if]
+{
+	[for (attribute : Property | class.attribute->asSet())]
+	[if ((attribute.association->isEmpty()) or (attribute.aggregation.toString()='none'))]
+	[attribute.visibility/] [attribute.type.name/] [attribute.name/];
+	[else]
+	[attribute.visibility/] java.util.List<[attribute.type.name/]> [attribute.name/]s;
+	[/if]
+	[/for]
+	[if (class.oclIsTypeOf(AssociationClass))]
+	[for (attribute : Property | class.oclAsType(AssociationClass).memberEnd)]
+	[attribute.visibility/] [attribute.type.name/] [attribute.name/];
+	[/for]
+	[/if]
+
+	public [class.name/]() {
+
+	}
+	
+	[for (attribute : Property | class.ownedAttribute)]
+	[if (attribute.association->isEmpty())]
+	[generateGetterSetter(attribute)/]
+	[/if]
+	[/for]
+	[if (class.oclIsTypeOf(AssociationClass))]
+	[for (attribute : Property | class.oclAsType(AssociationClass).memberEnd)]
+	[generateGetterSetter(attribute)/]
+	[/for]
+	[/if]
+	[for (operation : Operation | class.ownedOperation)]
+	[generateOperation(operation)/]
+	[/for]
+	[for (interface : Interface | class.generalization.target->select(oclIsTypeOf(Interface)).oclAsType(Interface))] 
+		[for (operation : Operation | interface.ownedOperation)]
+	[generateOperation(operation)/]
+		[/for]		
+	[/for]
+}
+[/file]
+[/template]
+
+[template public generateOperationHeader(operation : Operation)]
+[operation.visibility/] [if (operation.type.name->oclIsInvalid())]void[else][operation.type.name/][/if] [operation.name/]([for (parameter : Parameter | operation.ownedParameter->select(not direction.toString().equalsIgnoreCase('return'))) separator (',')][parameter.type.name/] [parameter.name/][/for])
+[/template]
+
+[template public generateOperation(operation : Operation)]
+[generateOperationHeader(operation)/] 
+{
+	[if not (operation.type.name->oclIsInvalid())]return null;[/if]
+}
+
+[/template]
+
+[template public generateGetterSetter(attribute : Property)]
+[if (attribute.visibility.toString()='private')]
+public [attribute.type.name/] get[attribute.name.toUpperFirst()/]() 
+{
+	return [attribute.name/];
+}
+
+public void set[attribute.name.toUpperFirst()/]([attribute.type.name/] [attribute.name/]) 
+{
+	this.[attribute.name/] = [attribute.name/];
+}
+[/if]
+[/template]
+
+

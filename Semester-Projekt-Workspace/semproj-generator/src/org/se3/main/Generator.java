@@ -8,7 +8,7 @@
  * Contributors:
  *     Obeo - initial API and implementation
  *******************************************************************************/
-package aufgabe2_gen.main;
+package org.se3.main;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,17 +25,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
 /**
- * Entry point of the 'GenerateModel2Java' generation module.
+ * Entry point of the 'Generator' generation module.
  *
  * @generated
  */
-public class GenerateModel2Java extends AbstractAcceleoGenerator {
+public class Generator extends AbstractAcceleoGenerator {
     /**
      * The name of the module.
      *
      * @generated
      */
-    public static final String MODULE_FILE_NAME = "/aufgabe2_gen/main/generateModel2Java";
+    public static final String MODULE_FILE_NAME = "/org/se3/main/generator";
     
     /**
      * The name of the templates that are to be generated.
@@ -65,7 +65,7 @@ public class GenerateModel2Java extends AbstractAcceleoGenerator {
      *
      * @generated
      */
-    public GenerateModel2Java() {
+    public Generator() {
         // Empty implementation
     }
 
@@ -85,7 +85,7 @@ public class GenerateModel2Java extends AbstractAcceleoGenerator {
      *             the model cannot be loaded.
      * @generated
      */
-    public GenerateModel2Java(URI modelURI, File targetFolder,
+    public Generator(URI modelURI, File targetFolder,
             List<? extends Object> arguments) throws IOException {
         initialize(modelURI, targetFolder, arguments);
     }
@@ -106,7 +106,7 @@ public class GenerateModel2Java extends AbstractAcceleoGenerator {
      *             This can be thrown in two scenarios : the module cannot be found, or it cannot be loaded.
      * @generated
      */
-    public GenerateModel2Java(EObject model, File targetFolder,
+    public Generator(EObject model, File targetFolder,
             List<? extends Object> arguments) throws IOException {
         initialize(model, targetFolder, arguments);
     }
@@ -141,7 +141,7 @@ public class GenerateModel2Java extends AbstractAcceleoGenerator {
                  * add in "arguments" this "String" attribute.
                  */
                 
-                GenerateModel2Java generator = new GenerateModel2Java(modelURI, folder, arguments);
+                Generator generator = new Generator(modelURI, folder, arguments);
                 
                 /*
                  * Add the properties from the launch arguments.

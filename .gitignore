@@ -4,3 +4,10 @@
 *.jar
 *.war
 *.ear
+.metadata
+.DS_Store
+.classpath
+.project
+Semester-Projekt-Workspace/aufgabe2_app/src_gen/*
+.settings
+semproj-generated

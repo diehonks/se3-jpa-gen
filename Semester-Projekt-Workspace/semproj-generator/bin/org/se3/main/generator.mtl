@@ -2,7 +2,7 @@
 [**
  * The documentation of the module generateModel2Java.
  */]
-[module generateModel2Java('http://www.eclipse.org/uml2/4.0.0/UML')]
+[module generator('http://www.eclipse.org/uml2/4.0.0/UML')]
 [**
  * The documentation of the template generateElement.
  * @param aClass

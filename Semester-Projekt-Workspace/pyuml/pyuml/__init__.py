@@ -3,6 +3,19 @@ import xml.dom
 import sys
 
 
+# Primitive value dummy classes
+class JavaBuildIn:
+    def __init__(self, name, pkgname):
+        self.name = name
+        self.package = {'name': pkgname}
+
+SIMPLE_TYPE_BY_UML_TYPE = {
+    'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer': JavaBuildIn('Integer','java.lang'),
+    'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String': JavaBuildIn('String','java.lang'),
+}
+
+LATE_RESOLV = []
+
 class Node(object):
     INDENTATION = 2
     
@@ -57,13 +70,14 @@ class Package(Node):
             'uml:AssociationClass' : AssociationClazz,
             'uml:Interface' : Interface,
             'uml:Enumeration' : Enumeration,
-            #'uml:Association' : Association,
+            'uml:Association' : Association,
         }
         self.classes = []
         self.interfaces = []
         self.enums = []
         for child in self.parseChildren(xmiid_map):
             childtype = type(child)
+            child.package = self
             if childtype == Enumeration:
                 self.enums.append(child)
                 continue
@@ -81,6 +95,12 @@ class Package(Node):
             if cls is not None:
                 cls.pretty_print(level + self.INDENTATION)
 
+class Association(Node):
+    def __init__(self, node, xmiid_map):
+        super().__init__(node, xmiid_map)
+        for owner in get_child_with_name(node, 'ownedEnd'):
+            owner.attributes.get('type').nodeValue
+
 class Clazz(Node):
     def __init__(self, node, xmiid_map):
         super().__init__(node, xmiid_map)
@@ -91,10 +111,10 @@ class Clazz(Node):
             'ownedEnd': Member,
         }
         self.abstract = self._getattr('isAbstract')
-        self._inherits_from_xmiids = [] # for later inheritance resolution
         self.members = []
         self.operations = []
         self.inherits_from = []
+        self.implements = []
         
         for child in self.parseChildren(xmiid_map):
             childtype = type(child)
@@ -105,10 +125,16 @@ class Clazz(Node):
     
     def generalize(self, node, xmiid_map):
         xmiid = node.attributes.get('general').nodeValue
-        self._inherits_from_xmiids.append(xmiid)
+        LATE_RESOLV.append((self.add_generalization, [xmiid]))
         
-    def resolve_generalization(self, xmiid_map):
-        self.inherits_from += [xmiid_map[xmiid] for xmiid in self._inherits_from_xmiids]
+    def add_generalization(self, general):
+        generalization_type = type(general)
+        if generalization_type == Clazz:
+            self.inherits_from.append(general)
+        elif generalization_type == Interface:
+            self.implements.append(general)
+        else:
+            print('unknown generalization of type "%s"'%generalization_type)
     
     def pretty_print(self, level=0):
         self.tree_print('Class: %s' % self.name, level)
@@ -139,32 +165,25 @@ class Literal(Node):
 
 class Member(Node):
     
-    DEFAULT_VISIBILITY = 'protected'
+    DEFAULT_VISIBILITY = 'public'
     
     def __init__(self, node, xmiid_map):
         super().__init__(node, xmiid_map)
         self.visibility = self._getattr('visibility')
         if not self.visibility:
             self.visibility = self.DEFAULT_VISIBILITY
-        typenode = get_child_with_name(self.node, 'type')
         self.type = None
-        if typenode:
+        for typenode in get_child_with_name(self.node, 'type'):
             umltypename = typenode.attributes.get('href').nodeValue
             self.type = SIMPLE_TYPE_BY_UML_TYPE.get(umltypename)
             if self.type is None:
                 print('missing type conversion for %s' % umltypename)
-        else:            
-            self._unresolved_type = self.node.attributes.get('type').nodeValue
-    
-    def resolve_type(self, xmiid_map):
         if self.type is None:
-            membertype = xmiid_map.get(self._unresolved_type)
-            if membertype:
-                self.type = membertype.name
-            else:
-                print('unresolvable reference to xmiid map "%s" for %s' %
-                       (self._unresolved_type, self.name))
+            LATE_RESOLV.append((self.setType, [self.node.attributes.get('type').nodeValue]))
     
+    def setType(self, typeref):
+        self.type = typeref
+       
     def pretty_print(self, level=0):
         self.tree_print('Member: %s' % self.name, level)
         self.tree_print('|- type: %s' % self.type, level)
@@ -173,19 +192,24 @@ class Member(Node):
 class Operation(Node):
     def __init__(self, node, xmiid_map):
         super().__init__(node, xmiid_map)
-        param = get_child_with_name(self.node, 'ownedParameter')
-        paramtype = get_child_with_name(param, 'type').attributes.get('href').nodeValue
-        self.returns = SIMPLE_TYPE_BY_UML_TYPE.get(paramtype, 'unknown')
+        for param in get_child_with_name(self.node, 'ownedParameter'):
+            direction = param.attributes.get('direction').nodeValue
+            if direction == 'return':
+                for paramtype in get_child_with_name(param, 'type'):
+                    returntypename = paramtype.attributes.get('href').nodeValue
+                    self.returntype = SIMPLE_TYPE_BY_UML_TYPE.get(returntypename, 'unknown')
+                    if self.returntype == 'unknown':
+                        print('unknown returntype "%s"'%returntypename)
+            else:
+                print('unknown direction for Operation parameter "%s"'%direction)
 
-SIMPLE_TYPE_BY_UML_TYPE = {
-    'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer': 'Integer',
-    'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String': 'String'
-}
+
+
 
 def get_child_with_name(node, name):
     for child in node.childNodes:
         if child.nodeName == name:
-            return child
+            yield child
 
 def parse_uml(umlfile):
     xmiid_map = {}
@@ -199,13 +223,10 @@ def parse_uml(umlfile):
             if nodetype and nodetype.nodeValue == 'uml:Package':
                 packages.append(Package(node, xmiid_map))
     # inheritance resolution
-    for element in xmiid_map.values():
-        elemtype = type(element)
-        if elemtype == Clazz or elemtype == AssociationClazz:
-            element.resolve_generalization(xmiid_map)
-            continue
-        if elemtype == Member:
-            element.resolve_type(xmiid_map)
+    for func, args in LATE_RESOLV:
+        resolveargs = [xmiid_map[arg] for arg in args]
+        func(*resolveargs)
+    
     return packages
 
 #packages = parse_uml("../../semproj-generator/model/model.uml")

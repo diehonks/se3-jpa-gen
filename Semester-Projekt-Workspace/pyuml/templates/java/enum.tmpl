@@ -1,9 +1,11 @@
-package {{pkg.name}};
+{% include 'package.tmpl' with context %}
 
-
-class {{cls.name}} {% if cls.inherits_from|length %}extends {{cls.inherits_from[0].name}}{% endif %}
+enum {{data.name}}
 {
-    {%- for member in cls.members %}
-        {{member.visibility}}  {{member.type}} {{member.name}};
+    {%- for literal in data.literals %}
+        {% filter upper %}
+        {{ literal.name }}{% if not loop.last %},{% endif %}
+        {% endfilter %}
     {%- endfor %}
+    {% include 'operations.tmpl' with context %}
 }

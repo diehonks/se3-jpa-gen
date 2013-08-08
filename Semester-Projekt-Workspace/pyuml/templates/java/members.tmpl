@@ -1,4 +1,4 @@
 //member variables
 {%- for member in data.members %}
-{{member.visibility}} {{member.type}} {{member.name}};
+{{member.visibility}} {{member.type.package.name}}.{{member.type.name}} {{member.name}};
 {%- endfor %}

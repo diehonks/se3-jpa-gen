@@ -30,5 +30,11 @@ def generate_project(packages, package_hierarchy=[]):
             template = env.get_template('interface.tmpl')
             with open(absfilename, 'w') as fh:
                 fh.write(template.render(data=inter, pkg=packagename))
+        for enum in pkg.enums:
+            filename = enum.name+'.java'
+            absfilename = curr_dir+os.sep+filename
+            template = env.get_template('enum.tmpl')
+            with open(absfilename, 'w') as fh:
+                fh.write(template.render(data=enum, pkg=packagename))
 
 generate_project(packages)

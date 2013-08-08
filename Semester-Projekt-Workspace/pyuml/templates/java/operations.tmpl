@@ -1,6 +1,6 @@
 //operations
 {% block operations %}
 {%- for op in data.operations %}
-{{ op.returns }} {{ op.name }}()
+{{ op.returntype.name }} {{ op.name }}();
 {%- endfor %}
 {% endblock %}

@@ -10,3 +10,4 @@
 Semester-Projekt-Workspace/aufgabe2_app/src_gen/*
 .settings
 semproj-generated
+__pycache__

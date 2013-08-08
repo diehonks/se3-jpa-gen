@@ -1,0 +1,4 @@
+//member variables
+{%- for member in data.members %}
+{{member.visibility}} {{member.type}} {{member.name}};
+{%- endfor %}

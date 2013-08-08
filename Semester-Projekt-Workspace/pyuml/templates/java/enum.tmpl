@@ -1,0 +1,9 @@
+package {{pkg.name}};
+
+
+class {{cls.name}} {% if cls.inherits_from|length %}extends {{cls.inherits_from[0].name}}{% endif %}
+{
+    {%- for member in cls.members %}
+        {{member.visibility}}  {{member.type}} {{member.name}};
+    {%- endfor %}
+}

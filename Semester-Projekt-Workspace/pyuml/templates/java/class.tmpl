@@ -1,0 +1,6 @@
+{% include 'package.tmpl' with context %}
+
+class {{data.name}} {% if data.inherits_from|length %} extends {{data.inherits_from[0].name}}{% endif %} {
+{% include 'operations.tmpl' with context %}
+{% include 'members.tmpl' with context %}
+}

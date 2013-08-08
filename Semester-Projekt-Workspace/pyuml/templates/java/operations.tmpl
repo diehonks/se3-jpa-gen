@@ -1,0 +1,6 @@
+//operations
+{% block operations %}
+{%- for op in data.operations %}
+{{ op.returns }} {{ op.name }}()
+{%- endfor %}
+{% endblock %}

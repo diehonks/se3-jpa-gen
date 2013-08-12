@@ -55,8 +55,8 @@ public class Course extends AEntity {
 		lecturers.remove(lecturer);
 	}
 
-	public Lecturer[] getLecturers() {
-		return (Lecturer[]) lecturers.toArray();
+	public List<Lecturer> getLecturers() {
+		return new ArrayList<Lecturer>(lecturers);
 	}
 
 	public void addStudent(final Student student) {
@@ -68,8 +68,8 @@ public class Course extends AEntity {
 
 	}
 
-	public Student[] getStudents() {
-		return (Student[]) students.toArray();
+	public List<Student> getStudents() {
+		return new ArrayList<Student>(students);
 	}
 
 }

@@ -29,4 +29,8 @@ public class Student extends APerson {
 	public void removeCourse(final Course course) {
 		courses.remove(course);
 	}
+
+	public List<Course> getCourses() {
+		return new ArrayList<Course>(courses);
+	}
 }

@@ -1,10 +1,14 @@
 package unittests;
 
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import persistence.daos.StudentDAO;
+import persistence.entities.Address;
+import persistence.entities.Course;
 import persistence.entities.Student;
 
 public class TestStudent {
@@ -26,7 +30,6 @@ public class TestStudent {
 		studentID = student.getId();
 		Assert.assertEquals(studentID, 0);
 		studentID = studentDAO.createStudent(student).getId();
-		System.out.println(studentID);
 		Assert.assertEquals((studentID > 0), true);
 		studentDAO.createStudent(new Student());
 	}
@@ -47,11 +50,25 @@ public class TestStudent {
 		student.setFirstName("TestVal4");
 		student.setLastName("TestVal5");
 		student.setMatrikelNr("TestVal6");
+
+		student.setAddress(new Address());
+
+		Assert.assertEquals(student.getCourses().size(), 0);
+		final Course course = new Course();
+		student.addCourse(course);
+
 		studentDAO.updateStudent(student);
 		final Student sameStudent = studentDAO.readStudent(studentID);
 		Assert.assertEquals(sameStudent.getFirstName(), "TestVal4");
 		Assert.assertEquals(sameStudent.getLastName(), "TestVal5");
 		Assert.assertEquals(sameStudent.getMatrikelNr(), "TestVal6");
+
+		final Address address = sameStudent.getAddress();
+		Assert.assertTrue(address.getId() > 0);
+
+		final List<Course> courses = sameStudent.getCourses();
+		Assert.assertEquals(courses.size(), 1);
+		Assert.assertTrue(courses.get(0).getId() > 0);
 	}
 
 	@Test(dependsOnMethods = "updateStudent")

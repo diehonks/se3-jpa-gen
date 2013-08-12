@@ -1,6 +1,5 @@
 package persistence.daos;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,19 +12,21 @@ import persistence.entities.AEntity;
 
 public abstract class ADAO {
 
-	private static EntityManagerFactory entityManagerFactory; 
-	private static EntityManagerFactory getEntityManagerFactory(){
-		if(entityManagerFactory==null){
-			entityManagerFactory = Persistence.createEntityManagerFactory("test_inmem_db");
+	private static EntityManagerFactory entityManagerFactory;
+
+	private static EntityManagerFactory getEntityManagerFactory() {
+		if (entityManagerFactory == null) {
+			entityManagerFactory = Persistence
+					.createEntityManagerFactory("test_inmem_db");
 		}
 		return entityManagerFactory;
 	}
-	
-	protected EntityManager getEntityManager(){
+
+	protected EntityManager getEntityManager() {
 		return getEntityManagerFactory().createEntityManager();
 	}
-	
-	protected <T extends AEntity> T create(T entity) {
+
+	protected <T extends AEntity> T create(final T entity) {
 		final EntityManager em = getEntityManager();
 		final EntityTransaction et = em.getTransaction();
 		et.begin();
@@ -34,8 +35,9 @@ public abstract class ADAO {
 		em.close();
 		return entity;
 	}
-	
-	protected <T extends AEntity> T read(Class<? extends T> clazz, long id) {
+
+	protected <T extends AEntity> T read(final Class<? extends T> clazz,
+			final long id) {
 		final EntityManager em = getEntityManager();
 		final EntityTransaction et = em.getTransaction();
 
@@ -46,8 +48,9 @@ public abstract class ADAO {
 
 		return result;
 	}
-	
-	protected final <T extends AEntity> List<T> readByJPQL(final String jpqString) {
+
+	protected final <T extends AEntity> List<T> readByJPQL(
+			final String jpqString) {
 		final EntityManager em = getEntityManager();
 		final EntityTransaction et = em.getTransaction();
 
@@ -59,7 +62,7 @@ public abstract class ADAO {
 		em.close();
 		return list;
 	}
-	
+
 	protected <T extends AEntity> T update(final T entity) {
 		final EntityManager em = getEntityManager();
 		final EntityTransaction et = em.getTransaction();
@@ -69,7 +72,7 @@ public abstract class ADAO {
 		em.close();
 		return entity;
 	}
-	
+
 	protected void delete(final AEntity entity) {
 		final EntityManager em = getEntityManager();
 		final EntityTransaction et = em.getTransaction();

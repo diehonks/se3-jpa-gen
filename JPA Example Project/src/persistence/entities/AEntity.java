@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
 //import javax.persistence.Version;
 
 /**
@@ -22,8 +23,9 @@ public abstract class AEntity implements Serializable {
 	@Column(nullable = false)
 	private long id;
 
-	/*@Version
-	private long versionId;*/
+	/*
+	 * @Version private long versionId;
+	 */
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 8095334309018497207L;
@@ -40,13 +42,12 @@ public abstract class AEntity implements Serializable {
 		this.id = id;
 	}
 
-	/*public long getVersionId() {
-		return versionId;
-	}
-
-	public void setVersionId(final long versionId) {
-		this.versionId = versionId;
-	}*/
+	/*
+	 * public long getVersionId() { return versionId; }
+	 * 
+	 * public void setVersionId(final long versionId) { this.versionId =
+	 * versionId; }
+	 */
 
 	@Override
 	public boolean equals(final Object obj) {

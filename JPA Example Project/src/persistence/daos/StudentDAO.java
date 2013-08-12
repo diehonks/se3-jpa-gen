@@ -4,26 +4,25 @@ import java.util.List;
 
 import persistence.entities.Student;
 
-
 public class StudentDAO extends ADAO {
-	
-	public Student createStudent(Student student){
+
+	public Student createStudent(final Student student) {
 		return create(student);
 	}
-	
-	public Student readStudent(long id){
+
+	public Student readStudent(final long id) {
 		return read(Student.class, id);
 	}
-	
-	public Student updateStudent(Student student){
+
+	public Student updateStudent(final Student student) {
 		return update(student);
 	}
-	
-	public List<Student> readAllStudents(){
+
+	public List<Student> readAllStudents() {
 		return readByJPQL("select t from Student t");
 	}
-	
-	public void deleteStudent(Student student){
+
+	public void deleteStudent(final Student student) {
 		delete(student);
 	}
 }

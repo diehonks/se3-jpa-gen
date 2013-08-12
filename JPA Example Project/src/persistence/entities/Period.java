@@ -1,5 +1,8 @@
 package persistence.entities;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Period {
 
 	private java.sql.Date startDate;

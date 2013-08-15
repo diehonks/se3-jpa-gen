@@ -1,40 +1,41 @@
-import pyuml
-#import jinja2
-from jinja2 import Environment, PackageLoader
-import os
 import shutil
+import os
 
 OUTPUT_FOLDER = 'src_gen'
+UML_FILE = "../semproj-generator/model/model.uml"
+TEMPLATES = 'bottle_templates'
 
-packages = pyuml.parse_uml("../semproj-generator/model/model.uml")
-env = Environment(loader=PackageLoader('templates', 'java'))
-
-def generate_project(packages, package_hierarchy=[]):
-    for pkg in packages:
-        curr_pkg_hier = package_hierarchy+[pkg.name]
-        curr_dir = os.sep.join([OUTPUT_FOLDER]+curr_pkg_hier)
-        packagename = '.'.join(curr_pkg_hier)
+def clear_folder(folder):
+    import os 
+    for the_file in os.listdir(folder):
+        file_path = os.path.join(folder, the_file)
         try:
-            os.makedirs(curr_dir)
-        except OSError:
-            pass
-        for clazz in pkg.classes:
-            filename = clazz.name+'.java'
-            absfilename = curr_dir+os.sep+filename
-            template = env.get_template('class.tmpl')
-            with open(absfilename, 'w') as fh:
-                fh.write(template.render(data=clazz, pkg=packagename))
-        for inter in pkg.interfaces:
-            filename = inter.name+'.java'
-            absfilename = curr_dir+os.sep+filename
-            template = env.get_template('interface.tmpl')
-            with open(absfilename, 'w') as fh:
-                fh.write(template.render(data=inter, pkg=packagename))
-        for enum in pkg.enums:
-            filename = enum.name+'.java'
-            absfilename = curr_dir+os.sep+filename
-            template = env.get_template('enum.tmpl')
-            with open(absfilename, 'w') as fh:
-                fh.write(template.render(data=enum, pkg=packagename))
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+            else:
+                shutil.rmtree(file_path)
+        except OSError as e:
+            print(e)
 
-generate_project(packages)
+print('cleaning up')
+clear_folder(OUTPUT_FOLDER)
+
+print('creating UML tree')
+import pyuml
+import pyumljava
+tree = pyuml.UMLParser(UML_FILE)
+umljava = pyumljava.PyUMLJava(tree)
+
+print('creating package structure and')
+print('creating files from templates')
+from bottle import template
+for packagename, pkgcontent in umljava.packages.items():
+    pkgdir = os.path.join(OUTPUT_FOLDER, packagename)
+    os.makedirs(pkgdir)
+    everything_in_package = pkgcontent['classes']+pkgcontent['interfaces']+pkgcontent['enums']
+    for e in everything_in_package:
+        rendered = template('java', template_lookup=['templates'], e=e)
+        filename = e.name+'.java'
+        with open(os.path.join(pkgdir, filename), 'w') as javafile:
+            javafile.write(rendered)
+

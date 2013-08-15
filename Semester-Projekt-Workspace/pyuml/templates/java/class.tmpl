@@ -1,9 +1,0 @@
-{% include 'package.tmpl' with context %}
-
-public {% if data.abstract %}abstract{% endif %} class {{data.name}}  {
-{% include 'constructor.tmpl' with context %}
-
-{% include 'operations.tmpl' with context %}
-{% include 'members.tmpl' with context %}
-
-}

@@ -6,11 +6,13 @@ class JPrimitive(object):
 class PyUMLJava(object):
     PRIMITIVES = {
         'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer':
-            JPrimitive('Integer', 'java.lang'),
+            JPrimitive('Long', 'java.lang'),
         'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String':
             JPrimitive('String', 'java.lang'),
         'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Object':
             JPrimitive('Object', 'java.lang'),
+        'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real':
+            JPrimitive('Double', 'java.lang'),
     }
     
     def __init__(self, pyUML):
@@ -58,18 +60,18 @@ class JMember(object):
         ''' % (self.visibility, self.type, self.name)
 
 class JOperation(object):
-    DEFAULT_VISIBLITY = ''
+    DEFAULT_VISIBLITY = 'public'
     def __init__(self, umlnode):
         self.umlnode = umlnode
         self.name = umlnode.attrs['name']
+        self.constructor = self.name == umlnode.parent.attrs['name']
+        self.abstract = umlnode.attrs.get('abstract', False) 
         self.visibility = umlnode.attrs.get('visibility', self.DEFAULT_VISIBLITY)
         try:
             returnwrapper = self.umlnode.getChildByAttr('direction', 'return')[0]
             self.returns = PyUMLJava.resolve_type(returnwrapper)
         except IndexError:
-            print('Missing return type for operation "%s" in "%s"!'%
-                  (self.name, self.umlnode.parent))
-            self.returns = JPrimitive('Object', 'java.lang')
+            self.returns = None
     
     def __repr__(self):
         return '''%s %s %s

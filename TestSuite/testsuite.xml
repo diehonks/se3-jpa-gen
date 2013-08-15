@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd">
+<suite name="Test suite">
+	<test name="testing">
+		<classes>
+			<class name="testsuite.tests.CheckFiles" />
+		</classes>
+	</test>
+</suite>

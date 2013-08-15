@@ -1,30 +1,30 @@
 package persistence.entities;
 
-import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 @MappedSuperclass
 public abstract class APerson extends AEntity {
 	private static final long serialVersionUID = -996332141756901725L;
-	
+
 	private String firstName;
 	private String lastName;
-	@ManyToOne
+	@OneToOne
 	private Address address;
 
 	public String getFirstName() {
 		return firstName;
 	}
-	
-	public void setFirstName(String firstName) {
+
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
-	public void setLastName(String lastName) {
+
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -32,7 +32,7 @@ public abstract class APerson extends AEntity {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(final Address address) {
 		this.address = address;
-	}	
+	}
 }

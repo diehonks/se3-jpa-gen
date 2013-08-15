@@ -1,0 +1,7 @@
+-Using-
+
+Link the file in the repo to your project.
+Add TestNG lib to the project.
+
+Attention the testsuit folder is a java package. If necessary declare the folder in project properties as src-folder.
+Start testsuite.xml as TestNG-Test.

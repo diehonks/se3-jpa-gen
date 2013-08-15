@@ -2,7 +2,7 @@ import shutil
 import os
 
 OUTPUT_FOLDER = 'src_gen'
-UML_FILE = "../semproj-generator/model/model.uml"
+UML_FILE = "../../JPA-example-UML/model.uml"
 TEMPLATES = 'bottle_templates'
 
 def clear_folder(folder):
@@ -17,17 +17,17 @@ def clear_folder(folder):
         except OSError as e:
             print(e)
 
-print('cleaning up')
+#print('cleaning up')
 clear_folder(OUTPUT_FOLDER)
 
-print('creating UML tree')
+#print('creating UML tree')
 import pyuml
 import pyumljava
 tree = pyuml.UMLParser(UML_FILE)
 umljava = pyumljava.PyUMLJava(tree)
 
-print('creating package structure and')
-print('creating files from templates')
+#print('creating package structure and')
+#print('creating files from templates')
 from bottle import template
 for packagename, pkgcontent in umljava.packages.items():
     pkgdir = os.path.join(OUTPUT_FOLDER, packagename)

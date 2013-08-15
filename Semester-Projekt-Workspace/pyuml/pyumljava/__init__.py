@@ -9,6 +9,8 @@ class PyUMLJava(object):
             JPrimitive('Integer', 'java.lang'),
         'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String':
             JPrimitive('String', 'java.lang'),
+        'pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Object':
+            JPrimitive('Object', 'java.lang'),
     }
     
     def __init__(self, pyUML):
@@ -61,8 +63,13 @@ class JOperation(object):
         self.umlnode = umlnode
         self.name = umlnode.attrs['name']
         self.visibility = umlnode.attrs.get('visibility', self.DEFAULT_VISIBLITY)
-        returnwrapper = self.umlnode.getChildByAttr('direction', 'return')[0]
-        self.returns = PyUMLJava.resolve_type(returnwrapper)
+        try:
+            returnwrapper = self.umlnode.getChildByAttr('direction', 'return')[0]
+            self.returns = PyUMLJava.resolve_type(returnwrapper)
+        except IndexError:
+            print('Missing return type for operation "%s" in "%s"!'%
+                  (self.name, self.umlnode.parent))
+            self.returns = JPrimitive('Object', 'java.lang')
     
     def __repr__(self):
         return '''%s %s %s

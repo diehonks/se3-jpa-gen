@@ -64,7 +64,7 @@ public class Course extends AEntity {
 	}
 
 	public void removeStudent(final Student student) {
-		students.remove(students);
+		students.remove(student);
 
 	}
 

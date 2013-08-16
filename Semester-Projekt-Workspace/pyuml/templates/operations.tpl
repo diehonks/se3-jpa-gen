@@ -1,5 +1,5 @@
 %for op in cls.operations:
-    {{op.visibility}} \\
+    {{op.visibility[0]}} \\
     %if op.name != cls.name:
         %if op.returns is None:
 void \\

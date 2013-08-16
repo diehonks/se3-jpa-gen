@@ -1,5 +1,14 @@
 package {{cls.package}};
 
+%if 'Profile:Entity' in cls.umlnode.profiles:
+@Entity
+%end
+%if 'Profile:MappedSuperClass' in cls.umlnode.profiles:
+@MappedSuperClass
+%end
+%if 'Profile:Embeddable' in cls.umlnode.profiles:
+@Embeddable
+%end
 public class {{cls.name}} \\
 %if not cls.inherits_from is None:
 extends {{cls.inherits_from.name}} \\

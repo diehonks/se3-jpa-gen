@@ -50,17 +50,30 @@ class PyUMLJava(object):
                     first : sec_cls,
                     second : first_cls,
                 }
+                upperValues = {
+                    first: first.getChildByTagName('upperValue')[0].attrs['value'],
+                    second: second.getChildByTagName('upperValue')[0].attrs['value']
+                }
                 for ownedEnd in assoc.attrs['navigableOwnedEnd']:
                     member_for_cls = belongsTo[ownedEnd]               
                     assocname = assoc.attrs['name']+ownedEnd.attrs['name'][0].upper()+ownedEnd.attrs['name'][1:]
                     assoctype = PyUMLJava.resolve_type(ownedEnd)
                     upper = ownedEnd.getChildByTagName('upperValue')[0].attrs['value']
-                    #lower = ownedEnd.getChildByTagName('lowerValue')[0].attrs.get['value']
-                    lower = '1'
+                    lower = ownedEnd.getChildByTagName('lowerValue')[0].attrs.get('value', '0')
                     if self.debug:
                         print('complex assoc %s owns %s named %s [%s-%s]'%
                               (member_for_cls.name, assoctype.name, assocname, lower, upper))
-                    member_for_cls.members.append(JMember(assoctype, assocname, lower, upper))
+                    multiplicity = '@'
+                    if ownedEnd == first:
+                        multiplicity += 'Many' if upperValues[second] == '*' else 'One'
+                    else:
+                        multiplicity += 'Many' if upperValues[first] == '*' else 'One'
+                    multiplicity += 'To'
+                    if ownedEnd == first:
+                        multiplicity += 'Many' if upperValues[first] == '*' else 'One'
+                    else:
+                        multiplicity += 'Many' if upperValues[second] == '*' else 'One'
+                    member_for_cls.members.append(JMember(assoctype, assocname, lower, upper, multiplicity=multiplicity))
 
     
     def resolve_type(umlnode):
@@ -102,15 +115,13 @@ class JMember(object):
     DEFAULT_VISIBLITY = 'public'
     DEFAULT_LOWER = '0'
     DEFAULT_UPPER = '1'
-    def __init__(self, _type, name, lower=DEFAULT_LOWER, upper=DEFAULT_UPPER, visibility=DEFAULT_VISIBLITY):
+    def __init__(self, _type, name, lower=DEFAULT_LOWER, upper=DEFAULT_UPPER, visibility=DEFAULT_VISIBLITY, multiplicity=''):
         self.name = name
         self.upper = upper
         self.lower = lower
+        self.multiplicity = multiplicity
         self.visibility = visibility
         self.type = _type
-        if type(self.type) == str:
-            print('ITs my fault %s' % self.name)
-    
 
 class JMemberPrimitive(JMember):
     def __init__(self, umlnode):
@@ -192,6 +203,7 @@ class JClass(object):
                 self.implements = JInterface(refgenereal)
             else:
                 print('unknown generalization: %s for %s' % (refgentype, umlnode))
+    
 
     def __repr__(self):
         return """

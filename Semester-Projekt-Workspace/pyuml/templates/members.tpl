@@ -8,7 +8,7 @@
 
 %def typedef_multiplicity(cls, m):
     %if m.upper == '*':
-LinkedList<\\
+ LinkedList<\\
 %typedef(cls, m)
 > \\
     %else:
@@ -17,7 +17,16 @@ LinkedList<\\
 %end
 
 %for m in cls.members:
-    {{m.visibility}}\\
+%if hasattr(m, 'umlnode'):
+    %if 'Profile:Id' in m.umlnode.profiles:
+    @Id
+    %end
+    %if 'Profile:GeneratedValue' in m.umlnode.profiles:
+    @GeneratedValue
+    %end
+%end
+    {{m.multiplicity}}
+    {{m.visibility}} \\
 %typedef_multiplicity(cls, m)
  {{m.name}};
 %end

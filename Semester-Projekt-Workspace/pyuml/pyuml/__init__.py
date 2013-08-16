@@ -8,6 +8,7 @@ class UMLNode(object):
             xmiid_map[xmlnode.attributes.get('xmi:id').nodeValue] = self
         self.name = xmlnode.tagName
         self.children = []
+        self.profiles = []
         self.refs = {}
         self.attrs = {n: v for n, v in xmlnode.attributes.items()}
         for child in xmlnode.childNodes:
@@ -44,13 +45,25 @@ class UMLParser:
         self.umlrepr = []
         doc = minidom.parse(umlfile)
         self.packages = []
-        for node in doc.documentElement.childNodes:
+        self.profiles = []
+        model = doc.documentElement.getElementsByTagName('uml:Model')[0]
+        for node in model.childNodes:
             if node.nodeType == xml.dom.Node.ELEMENT_NODE:
                 nodetype = node.attributes.get('xmi:type')
                 # Package is topmost element,
                 # all children are parsed by their parents
                 if nodetype and nodetype.nodeValue == 'uml:Package':
                     self.packages.append(UMLNode(None, node, self.xmiid_map))
+        
+        #add profile information:
+        for node in doc.documentElement.childNodes:
+            if node.nodeType == xml.dom.Node.ELEMENT_NODE:
+                if node.tagName.startswith('Profile'):
+                    for name, value in node.attributes.items():
+                        if name.startswith('base_'):
+                            node_with_profile = self.xmiid_map[value]
+                            node_with_profile.profiles.append(node.tagName)
+
         #resolve xmiid_map
         for xmlnode in self.xmiid_map.values():
             for attr_resolv in self.XMI_ID_REFS.get(xmlnode.name, []):
@@ -58,7 +71,7 @@ class UMLParser:
                     xmiids = xmlnode.attrs[attr_resolv].split(' ')
                     xmlnode.attrs[attr_resolv] = [self.xmiid_map[xmiid] for xmiid in xmiids]
                     xmlnode.refs[attr_resolv] = [self.xmiid_map[xmiid] for xmiid in xmiids]
-                    
+
     def getRoot(self):
         return self.packages
                         

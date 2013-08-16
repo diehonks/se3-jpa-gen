@@ -1,7 +1,7 @@
 import shutil
 import os
 
-OUTPUT_FOLDER = 'src_gen'
+OUTPUT_FOLDER = 'src_gen/src/main'
 UML_FILE = "../../JPA-example-UML/model.uml"
 TEMPLATES = 'bottle_templates'
 
@@ -55,4 +55,6 @@ for packagename, pkgcontent in umljava.packages.items():
         filename = cls.name+'DAO.java'
         with open(os.path.join(daopkgdir, filename), 'w') as daofile:
             daofile.write(rendered)
+            
+
 

@@ -14,6 +14,36 @@ import javax.persistence.Id;
 %end
 %end
 
+%for m in cls.members:
+%if '@ManyToOne' == m.multiplicity:
+import javax.persistence.ManyToOne;
+%break
+%end
+%end
+
+%for m in cls.members:
+%if '@OneToMany' == m.multiplicity:
+import javax.persistence.OneToMany;
+%break
+%end
+%end
+
+%for m in cls.members:
+%if '@OneToOne' == m.multiplicity:
+import javax.persistence.OneToOne;
+%break
+%end
+%end
+
+%for m in cls.members:
+%if m.upper == '*':
+import java.util.List;
+import java.util.ArrayList;
+%break
+%end
+%end
+
+
 %if 'Entity' in cls.umlnode.profiles:
 import javax.persistence.Entity;
 

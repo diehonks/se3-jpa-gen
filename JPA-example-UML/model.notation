@@ -52,14 +52,6 @@
             <element xmi:type="uml:Operation" href="model.uml#_sRJ5sAW-EeOUpP-d4VXN3A"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="_sRLH0QW-EeOUpP-d4VXN3A"/>
           </children>
-          <children xmi:type="notation:Shape" xmi:id="_FtjQAAXJEeOUpP-d4VXN3A" type="3013" fontName="Sans" fontHeight="10" lineColor="0">
-            <element xmi:type="uml:Operation" href="model.uml#_FtiB4AXJEeOUpP-d4VXN3A"/>
-            <layoutConstraint xmi:type="notation:Location" xmi:id="_FtjQAQXJEeOUpP-d4VXN3A"/>
-          </children>
-          <children xmi:type="notation:Shape" xmi:id="_QOKIAAXJEeOUpP-d4VXN3A" type="3013" fontName="Sans" fontHeight="10" lineColor="0">
-            <element xmi:type="uml:Operation" href="model.uml#_QOI54AXJEeOUpP-d4VXN3A"/>
-            <layoutConstraint xmi:type="notation:Location" xmi:id="_QOKIAQXJEeOUpP-d4VXN3A"/>
-          </children>
           <children xmi:type="notation:Shape" xmi:id="_axsYMAXJEeOUpP-d4VXN3A" type="3013" fontName="Sans" fontHeight="10" lineColor="0">
             <element xmi:type="uml:Operation" href="model.uml#_axrKEAXJEeOUpP-d4VXN3A"/>
             <layoutConstraint xmi:type="notation:Location" xmi:id="_axsYMQXJEeOUpP-d4VXN3A"/>

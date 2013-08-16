@@ -8,11 +8,16 @@
 
 %def typedef_multiplicity(cls, m):
     %if m.upper == '*':
- LinkedList<\\
+ List<\\
 %typedef(cls, m)
 > \\
     %else:
         %typedef(cls, m)
+    %end
+    %if m.upper == '*':
+ = new ArrayList<\\
+%typedef(cls, m)
+>() \\
     %end
 %end
 

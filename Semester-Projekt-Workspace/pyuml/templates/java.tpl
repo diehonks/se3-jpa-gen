@@ -1,5 +1,5 @@
 %if e.__class__.__name__ == 'JClass':
-  %include class cls=e
+  %include entity_class cls=e
 %elif e.__class__.__name__ == 'JEnum':
   %include enum enum=e
 %elif e.__class__.__name__ == 'JInterface':

@@ -1,6 +1,6 @@
-%for op in clazz.operations:
+%for op in cls.operations:
     {{op.visibility}} \\
-    %if op.name != clazz.name:
+    %if op.name != cls.name:
         %if op.returns is None:
 void \\
         %else:
@@ -15,7 +15,7 @@ abstract \\
 ;
     %else:
     {
-        %if op.name == clazz.name:
+        %if op.name == cls.name:
         //constructor stub
         %else:
         //method body stub

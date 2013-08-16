@@ -18,20 +18,24 @@ def clear_folder(folder):
             print(e)
 
 #print('cleaning up')
-clear_folder(OUTPUT_FOLDER)
+#clear_folder(OUTPUT_FOLDER)
 
 #print('creating UML tree')
 import pyuml
 import pyumljava
 tree = pyuml.UMLParser(UML_FILE)
-umljava = pyumljava.PyUMLJava(tree)
+umljava = pyumljava.PyUMLJava(tree, debug=True)
+
 
 #print('creating package structure and')
 #print('creating files from templates')
 from bottle import template
 for packagename, pkgcontent in umljava.packages.items():
-    pkgdir = os.path.join(OUTPUT_FOLDER, packagename)
-    os.makedirs(pkgdir)
+    pkgdir = os.path.join(OUTPUT_FOLDER, packagename.replace('.','/'))
+    try:
+        os.makedirs(pkgdir)
+    except OSError:
+        pass #dir already exists
     everything_in_package = pkgcontent['classes']+pkgcontent['interfaces']+pkgcontent['enums']
     for e in everything_in_package:
         rendered = template('java', template_lookup=['templates'], e=e)

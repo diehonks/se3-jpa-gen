@@ -8,6 +8,7 @@ class UMLNode(object):
             xmiid_map[xmlnode.attributes.get('xmi:id').nodeValue] = self
         self.name = xmlnode.tagName
         self.children = []
+        self.refs = {}
         self.attrs = {n: v for n, v in xmlnode.attributes.items()}
         for child in xmlnode.childNodes:
             if child.nodeType == xml.dom.Node.ELEMENT_NODE:
@@ -17,7 +18,10 @@ class UMLNode(object):
         return [child for child in self.children if child.name == tagname]
     
     def getChildByAttr(self, attrname, attrvalue):
-        return [c for c in self.children if c.attrs.get(attrname) == attrvalue]
+        return [c for c in self.children if attrvalue == c.attrs.get(attrname)]
+    
+    def getChildByRef(self, refname, refvalue):
+        return [c for c in self.children if refvalue in c.attrs.get(refname, [])]
     
     def __repr__(self):
         name = self.name
@@ -31,6 +35,8 @@ class UMLParser:
     XMI_ID_REFS = {
         'generalization': ['general'],
         'ownedAttribute': ['type', 'association'],
+        'ownedEnd': ['type', 'association'],
+        'packagedElement': ['navigableOwnedEnd'],
     }
     
     def __init__(self, umlfile):
@@ -46,10 +52,12 @@ class UMLParser:
                 if nodetype and nodetype.nodeValue == 'uml:Package':
                     self.packages.append(UMLNode(None, node, self.xmiid_map))
         #resolve xmiid_map
-        for e in self.xmiid_map.values():
-            for attrname in self.XMI_ID_REFS.get(e.name, []):
-                if attrname in e.attrs:
-                    e.attrs[attrname] = self.xmiid_map[e.attrs[attrname]]
+        for xmlnode in self.xmiid_map.values():
+            for attr_resolv in self.XMI_ID_REFS.get(xmlnode.name, []):
+                if attr_resolv in xmlnode.attrs:
+                    xmiids = xmlnode.attrs[attr_resolv].split(' ')
+                    xmlnode.attrs[attr_resolv] = [self.xmiid_map[xmiid] for xmiid in xmiids]
+                    xmlnode.refs[attr_resolv] = [self.xmiid_map[xmiid] for xmiid in xmiids]
                     
     def getRoot(self):
         return self.packages

@@ -8,7 +8,7 @@ class UMLNode(object):
             xmiid_map[xmlnode.attributes.get('xmi:id').nodeValue] = self
         self.name = xmlnode.tagName
         self.children = []
-        self.profiles = []
+        self.profiles = {}
         self.refs = {}
         self.attrs = {n: v for n, v in xmlnode.attributes.items()}
         for child in xmlnode.childNodes:
@@ -62,7 +62,13 @@ class UMLParser:
                     for name, value in node.attributes.items():
                         if name.startswith('base_'):
                             node_with_profile = self.xmiid_map[value]
-                            node_with_profile.profiles.append(node.tagName)
+                            profilename = node.tagName[8:]
+                            profile_attrs = {}
+                            for name, value in node.attributes.items():
+                                if name.startswith('base_') or name == 'xmi:id':
+                                    continue
+                                profile_attrs[name] = value
+                            node_with_profile.profiles[profilename] = profile_attrs
 
         #resolve xmiid_map
         for xmlnode in self.xmiid_map.values():

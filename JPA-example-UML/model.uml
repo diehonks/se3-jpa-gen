@@ -14,21 +14,6 @@
             <value xsi:nil="true"/>
           </defaultValue>
         </ownedAttribute>
-        <ownedOperation xmi:id="_sRJ5sAW-EeOUpP-d4VXN3A" name="equals" concurrency="concurrent">
-          <ownedParameter xmi:id="_VgDrAAW_EeOUpP-d4VXN3A" name="other" isUnique="false"/>
-        </ownedOperation>
-        <ownedOperation xmi:id="_FtiB4AXJEeOUpP-d4VXN3A" name="getId">
-          <ownedParameter xmi:id="_Op11kAXJEeOUpP-d4VXN3A" name="id" isUnique="false" direction="return">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Op11kQXJEeOUpP-d4VXN3A"/>
-          </ownedParameter>
-        </ownedOperation>
-        <ownedOperation xmi:id="_QOI54AXJEeOUpP-d4VXN3A" name="setId">
-          <ownedParameter xmi:id="_Vc2acAXJEeOUpP-d4VXN3A" isUnique="false">
-            <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
-            <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_Vc2acQXJEeOUpP-d4VXN3A"/>
-          </ownedParameter>
-        </ownedOperation>
         <ownedOperation xmi:id="_axrKEAXJEeOUpP-d4VXN3A" name="AEntity"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_br0psAW_EeOUpP-d4VXN3A" name="Address">
@@ -56,7 +41,6 @@
             <value xsi:nil="true"/>
           </defaultValue>
         </ownedAttribute>
-        <ownedOperation xmi:id="_-3fxYAZ8EeOPBJTlS0cnzQ" name="getHouseNumber"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_ebRSgAW_EeOUpP-d4VXN3A" name="APerson">
         <ownedAttribute xmi:id="_uw94IAXLEeOUpP-d4VXN3A" name="fristName" visibility="public">

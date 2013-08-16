@@ -8,16 +8,15 @@
 
 %def typedef_multiplicity(cls, m):
     %if m.upper == '*':
- List<\\
+List<\\
 %typedef(cls, m)
-> \\
+> {{m.name}} = new ArrayList<\\
+%typedef(cls, m)
+>();
+
     %else:
         %typedef(cls, m)
-    %end
-    %if m.upper == '*':
- = new ArrayList<\\
-%typedef(cls, m)
->() \\
+        {{m.name}};
     %end
 %end
 
@@ -44,5 +43,4 @@
     {{m.multiplicity}}
     {{m.visibility}} \\
 %typedef_multiplicity(cls, m)
- {{m.name}};
 %end

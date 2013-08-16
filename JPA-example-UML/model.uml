@@ -14,7 +14,6 @@
             <value xsi:nil="true"/>
           </defaultValue>
         </ownedAttribute>
-        <ownedOperation xmi:id="_axrKEAXJEeOUpP-d4VXN3A" name="AEntity"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_br0psAW_EeOUpP-d4VXN3A" name="Address">
         <ownedAttribute xmi:id="_BZrVIAXLEeOUpP-d4VXN3A" name="houseNumber" visibility="public">

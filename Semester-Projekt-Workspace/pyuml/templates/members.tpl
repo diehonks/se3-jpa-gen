@@ -19,9 +19,9 @@
 %def print_profile_attr(profile):
     %for n, v in profile.items():
         %if v == 'true' or v == 'false':
-            {{n}} = {{v}},
+{{n}} = {{v}}, \\
         %else:
-            {{n}} = "{{v}}",
+{{n}} = "{{v}}", \\
         %end
     %end
 %end
@@ -32,7 +32,7 @@
     @Id
     %end
     %if 'Column' in m.umlnode.profiles:
-    @Column(
+    @Column( \\
         %print_profile_attr(m.umlnode.profiles['Column'])
     )
     %end

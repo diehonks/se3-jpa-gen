@@ -1,14 +1,30 @@
 package {{cls.package}};
 
+%for m in cls.members:
+%if hasattr(m, 'umlnode') and 'Column' in m.umlnode.profiles:
+import javax.persistence.Column;
+%break
+%end
+%end
+
+%for m in cls.members:
+%if hasattr(m, 'umlnode') and 'Id' in m.umlnode.profiles:
+import javax.persistence.Id;
+%break
+%end
+%end
+
 %if 'Entity' in cls.umlnode.profiles:
 import javax.persistence.Entity;
 
 @Entity
 %end
 %if 'MappedSuperClass' in cls.umlnode.profiles:
-@MappedSuperClass
+import javax.persistence.MappedSuperclass;
+@MappedSuperclass
 %end
 %if 'Embeddable' in cls.umlnode.profiles:
+import javax.persistence.Embeddable;
 @Embeddable
 %end
 public class {{cls.name}} \\

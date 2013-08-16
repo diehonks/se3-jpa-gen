@@ -4,7 +4,7 @@ package {{cls.package}};
 @Entity
 %end
 %if 'Profile:MappedSuperClass' in cls.umlnode.profiles:
-@MappedSuperClass
+@MappedSuperclass
 %end
 %if 'Profile:Embeddable' in cls.umlnode.profiles:
 @Embeddable

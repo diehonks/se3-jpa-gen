@@ -181,7 +181,7 @@
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ebTHwQW_EeOUpP-d4VXN3A"/>
         </children>
         <element xmi:type="uml:Class" href="model.uml#_ebRSgAW_EeOUpP-d4VXN3A"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ebR5kQW_EeOUpP-d4VXN3A" x="307" y="105" width="205" height="193"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ebR5kQW_EeOUpP-d4VXN3A" x="355" y="117" width="205" height="193"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_fYCcwAW_EeOUpP-d4VXN3A" type="3010" fontName="Sans" fontHeight="10" lineColor="0">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_fYDD0AW_EeOUpP-d4VXN3A" source="ShadowFigure">

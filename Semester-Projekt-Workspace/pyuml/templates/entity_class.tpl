@@ -16,7 +16,7 @@ import javax.persistence.Id;
 
 %for m in cls.members:
 %if '@ManyToMany' == m.multiplicity:
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 %break
 %end
 %end
@@ -69,7 +69,7 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
     
     %include members cls=cls
     
-    class {{cls.name}}(){
+    public {{cls.name}}(){
         //constructor stub!
     }
     

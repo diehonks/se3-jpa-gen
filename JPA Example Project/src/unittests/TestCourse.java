@@ -11,18 +11,21 @@ import persistence.entities.Student;
 import persistence.entities.StudyPath;
 import persistence.entities.StudyTheme;
 import persistence.daos.CourseDAO;
+import persistence.daos.StudyPathDAO;
 
 /* Integrated test for period class */
 
 public class TestCourse {
 
 	private CourseDAO courseDAO = null;
+	private StudyPathDAO pathDAO = null;
 	private long courseID = 0;
 	private StudyPath coursePath = null;
 
 	@BeforeClass
 	public void oneTimeSetUp() {
 		courseDAO = new CourseDAO();
+		pathDAO = new StudyPathDAO();
 	}
 
 	@Test
@@ -37,6 +40,7 @@ public class TestCourse {
 		final StudyPath path = new StudyPath();
 		path.setName("TestPathName");
 		path.setTheme(StudyTheme.INFORMATICS);
+		pathDAO.createStudyPath(path);
 
 		course.setStudyPath(path);
 		courseID = course.getId();
@@ -72,6 +76,7 @@ public class TestCourse {
 		course.setCoursePeriod(period);
 		StudyPath newPath = new StudyPath();
 		course.setStudyPath(newPath);
+		pathDAO.createStudyPath(newPath);
 		courseDAO.updateCourse(course);
 
 		final Course sameCourse = courseDAO.readCourse(courseID);
@@ -88,6 +93,7 @@ public class TestCourse {
 		int count = courseDAO.readAllCourse().size();
 		Assert.assertEquals(count, 2);
 		courseDAO.deleteCourse(course);
+		count = courseDAO.readAllCourse().size();
 		Assert.assertEquals(count, 1);
 		course = courseDAO.readCourse(courseID);
 		Assert.assertNull(course);

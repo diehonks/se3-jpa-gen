@@ -1,7 +1,7 @@
 import shutil
 import os
 
-OUTPUT_FOLDER = 'src/main'
+OUTPUT_FOLDER = 'src/main/java'
 UML_FILE = "../../JPA-example-UML/model.uml"
 TEMPLATES = 'bottle_templates'
 

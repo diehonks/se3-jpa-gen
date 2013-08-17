@@ -87,9 +87,7 @@ public abstract class ADAO {
 		final EntityTransaction et = em.getTransaction();
 		et.begin();
 		
-		String jpqlString = "DELETE FROM "+clazz.getName()+" c ";
-		System.out.println(jpqlString);
-		final Query q = em.createQuery(jpqlString);
+		final Query q = em.createQuery("DELETE FROM "+clazz.getName()+" c ");
 		q.executeUpdate();
 		
 		et.commit();

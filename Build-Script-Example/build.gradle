@@ -1,0 +1,45 @@
+apply plugin: 'java'
+
+task runPython(type:Exec) {
+   commandLine 'python3', 'pyuml_main.py'
+}
+
+sourceSets {
+	//tasks.getByPath(':runPython').execute()
+
+	main {
+        java {
+            srcDir 'src/main'
+        }
+    }
+    test {
+    	java {
+    		srcDir 'src/test'
+    	}
+    	resources{
+    		srcDir 'src/ressources'
+    	}			
+    }
+
+    ressources
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'javax.persistence:persistence-api:1.0'
+	compile 'org.testng:testng:6.8.5'
+	compile 'org.eclipse.persistence:org.eclipse.persistence.core:2.5.0'
+    compile 'org.eclipse.persistence:org.eclipse.persistence.jpa:2.5.0'
+    compile 'com.h2database:h2:1.3.173'      
+}
+
+test {
+    maxParallelForks = 1
+    useTestNG {}
+}
+
+
+

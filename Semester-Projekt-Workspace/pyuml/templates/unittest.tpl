@@ -140,9 +140,9 @@ public class Test{{cls.name}} {
             %if m.visibility == 'public':
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
-		Assert.assertEquals(same{{cls.name}}.get{{m.type.name}}(), {{m.name.lower()}});
+		Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
                     %else:
-        Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name, 2)}});
+        Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
                     %end
                 %end
             %end

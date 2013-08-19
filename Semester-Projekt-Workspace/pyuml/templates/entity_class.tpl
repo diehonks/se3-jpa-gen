@@ -15,21 +15,21 @@ import javax.persistence.Id;
 %end
 
 %for m in cls.members:
-%if '@ManyToMany' == m.multiplicity:
+%if '@ManyToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
 import javax.persistence.ManyToMany;
 %break
 %end
 %end
 
 %for m in cls.members:
-%if '@OneToMany' == m.multiplicity:
+%if '@OneToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
 import javax.persistence.OneToMany;
 %break
 %end
 %end
 
 %for m in cls.members:
-%if '@OneToOne' == m.multiplicity:
+%if '@OneToOne' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
 import javax.persistence.OneToOne;
 %break
 %end

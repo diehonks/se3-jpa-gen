@@ -40,7 +40,9 @@ List<\\
     @GeneratedValue
     %end
 %end
+%if m.type.__class__.__name__ == 'JClass':
     {{m.multiplicity}}
+%end
     {{m.visibility}} \\
 %typedef_multiplicity(cls, m)
 %end

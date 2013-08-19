@@ -46,6 +46,7 @@ public class Test{{cls.name}} {
         %if m.visibility == 'public':
             %if m.upper != '*' and m.type.__class__.__name__ == 'JClass':
     {{m.type.name}} {{m.name.lower()}} = null;
+            %end
         %end
     %end
 
@@ -103,7 +104,7 @@ public class Test{{cls.name}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
-        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}})
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
             %end
         %end
         %end
@@ -121,7 +122,7 @@ public class Test{{cls.name}} {
 	%test_dependency(cls, test_previous, 'update'+cls.name)
 	public void delete{{cls.name}}() {
 		{{cls.name}} {{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
-		{{cls.name.lower()}}DAO.deleteLecturer({{cls.name.lower()}});
+		{{cls.name.lower()}}DAO.delete{{cls.name}}({{cls.name.lower()}});
 		{{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
 		Assert.assertNull({{cls.name.lower()}});
 	}

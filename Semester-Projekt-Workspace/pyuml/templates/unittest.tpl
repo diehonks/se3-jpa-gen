@@ -20,8 +20,10 @@
     %else:
         %return 'UNIMPLEMENTED PRIMITIVE %s' % (type.name)
     %end
+%elif type.__class__.__name__ == 'JEnum':
+    %return '%s.%s' % (type.name, type.literals[n])
 %else:
-    %return 'NOT_DEFAULT_TYPE_IMPLEMENTED (%s)' % type.__class__.__name__
+    %return 'DEFAULT TYPE NOT IMPLEMENTED (%s)' % type.__class__.__name__
 %end
 %end
 

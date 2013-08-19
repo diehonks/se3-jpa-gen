@@ -10,10 +10,18 @@
 %end
 
 %def defaultValue(type, name, n=1):
-%if type.name == 'String':
-%return '"%s%s%d"' % (name, type.name, n)
+%if type.__class__.__name__ == 'JClass':
+    %return 'new %s()' % type.name;
+%elif type.__class__.__name__ == 'JPrimitive':
+    %if type.name == 'String':
+        %return '"%s%s%d"' % (name, type.name, n)
+    %elif type.name == 'Double':
+        %return 1.34*n
+    %else:
+        %return 'UNIMPLEMENTED PRIMITIVE %s' % (type.name)
+    %end
 %else:
-%return 'NOT_DEFAULT_TYPE_IMPLEMENTED (%s)' % type.__class__
+    %return 'NOT_DEFAULT_TYPE_IMPLEMENTED (%s)' % type.__class__.__name__
 %end
 %end
 

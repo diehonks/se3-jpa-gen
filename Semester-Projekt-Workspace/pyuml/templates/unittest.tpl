@@ -118,25 +118,36 @@ public class Test{{cls.name}} {
 
 	%test_dependency(cls, test_previous, 'read'+cls.name)
 	public void update{{cls.name}}() {
-		final {{cls.name}} {{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
+    
+		final {{cls.name}} {{cls.name.lower()}} = {{cls.name}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
+                
         %for m in cls.members:
-        %if m.visibility == 'public':
-            %if m.upper != '*':
-                %if not m.type.__class__.__name__ == 'JClass':
+            %if m.visibility == 'public':
+                %if m.upper != '*':
+                    %if m.type.__class__.__name__ == 'JClass':
+        {{m.name}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
+        {{m.type.name}}DAO.create{{m.type.name[0].upper()+m.type.name[1:]}}({{m.name}});
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name}});
+                    %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
+                    %end
                 %end
             %end
         %end
-        %end
+                
 		{{cls.name.lower()}}DAO.update{{cls.name}}({{cls.name.lower()}});
-		final {{cls.name}} same{{cls.name}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
+		
+        final {{cls.name}} same{{cls.name}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
         %for m in cls.members:
-        %if m.visibility == 'public':
-            %if m.upper != '*':
+            %if m.visibility == 'public':
+                %if m.upper != '*':
+                    %if m.type.__class__.__name__ == 'JClass':
+		Assert.assertEquals(same{{cls.name}}.get{{m.type.name}}(), {{m.name}});
+                    %else:
         Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name, 2)}});
-        Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name, 2)}});
+                    %end
+                %end
             %end
-        %end
         %end
 	}
 

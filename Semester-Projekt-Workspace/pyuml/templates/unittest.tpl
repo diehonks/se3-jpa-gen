@@ -122,9 +122,9 @@ public class Test{{cls.name}} {
             %if m.visibility == 'public':
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
-        {{m.name}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
-        {{m.type.name}}DAO.create{{m.type.name[0].upper()+m.type.name[1:]}}({{m.name}});
-        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name}});
+        {{m.name.lower()}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
+        {{m.type.name}}DAO.create{{m.type.name[0].upper()+m.type.name[1:]}}({{m.name.lower()}});
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
                     %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
                     %end
@@ -139,7 +139,7 @@ public class Test{{cls.name}} {
             %if m.visibility == 'public':
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
-		Assert.assertEquals(same{{cls.name}}.get{{m.type.name}}(), {{m.name}});
+		Assert.assertEquals(same{{cls.name}}.get{{m.type.name}}(), {{m.name.lower()}});
                     %else:
         Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name, 2)}});
                     %end

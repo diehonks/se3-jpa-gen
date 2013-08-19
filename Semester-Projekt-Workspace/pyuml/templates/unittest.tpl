@@ -37,10 +37,17 @@ import {{cls.package}}.{{cls.name}};
 // import members!
 //import persistence.entities.StudyTheme;
 
-public class Test{{cls.name.lower()}} {
+public class Test{{cls.name}} {
 
 	private {{cls.name}}DAO {{cls.name.lower()}}DAO = null;
 	private long {{cls.name.lower()}}ID = 0;
+    
+    %for m in cls.members:
+        %if m.visibility == 'public':
+            %if m.upper != '*' and m.type.__class__.__name__ == 'JClass':
+    {{m.type.name}} {{m.name.lower()}} = null;
+        %end
+    %end
 
 	@BeforeClass
 	public void oneTimeSetUp() {
@@ -56,7 +63,12 @@ public class Test{{cls.name.lower()}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
-        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name)}})
+                %if m.type.__class__.__name__ == 'JClass':
+                    {{m.name.lower()}} = {{defaultValue(m.type, m.name)}};
+                    {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
+                %else:
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name)}});
+                %end
             %end
         %end
         %end

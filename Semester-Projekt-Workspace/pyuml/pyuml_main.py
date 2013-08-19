@@ -63,7 +63,7 @@ for packagename, pkgcontent in umljava.packages.items():
     with open(os.path.join(daopkgdir, filename), 'w') as daofile:
         daofile.write(rendered)
     
-    unittestpkg = 'unittest'
+    unittestpkg = 'unittests'
     testpkgdir = os.path.join(OUTPUT_FOLDER, 'test', unittestpkg)
     mkdir_ignore(testpkgdir)
     test_previous = ''

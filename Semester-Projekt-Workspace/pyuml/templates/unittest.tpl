@@ -42,7 +42,7 @@ import java.util.ArrayList;
 %end
 %end
 
-%if m.visibility == 'public' and m.type.__class__.__name__ == 'JClass':
+%if m.type.__class__.__name__ == 'JClass':
 import {{m.type.package}}.{{m.type.name}};
 %end
 

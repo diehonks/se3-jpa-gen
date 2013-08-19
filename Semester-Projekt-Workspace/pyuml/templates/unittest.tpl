@@ -123,7 +123,7 @@ public class Test{{cls.name}} {
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
         {{m.name.lower()}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
-        {{m.type.name}}DAO.create{{m.type.name[0].upper()+m.type.name[1:]}}({{m.name.lower()}});
+        {{m.type.name.lower()}}DAO.create{{m.type.name[0].upper()+m.type.name[1:]}}({{m.name.lower()}});
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
                     %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});

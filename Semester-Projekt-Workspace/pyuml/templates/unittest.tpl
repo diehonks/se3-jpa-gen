@@ -10,10 +10,18 @@
 %end
 
 %def defaultValue(type, name, n=1):
-%if type.name == 'String':
-%return '"%s%s%d"' % (name, type.name, n)
+%if type.__class__.__name__ == 'JClass':
+    %return 'new %s()' % type.name;
+%elif type.__class__.__name__ == 'JPrimitive':
+    %if type.name == 'String':
+        %return '"%s%s%d"' % (name, type.name, n)
+    %elif type.name == 'Double':
+        %return 1.34*n
+    %else:
+        %return 'UNIMPLEMENTED PRIMITIVE %s' % (type.name)
+    %end
 %else:
-%return 'NOT_DEFAULT_TYPE_IMPLEMENTED (%s)' % type.__class__
+    %return 'NOT_DEFAULT_TYPE_IMPLEMENTED (%s)' % type.__class__.__name__
 %end
 %end
 
@@ -26,13 +34,33 @@ import org.testng.annotations.Test;
 import persistence.daos.{{cls.name}}DAO;
 import {{cls.package}}.{{cls.name}};
 
+%for m in cls.members:
+%if m.upper == '*':
+import java.util.List;
+import java.util.ArrayList;
+%break
+%end
+%end
+
+%if m.visibility == 'public' and m.type.__class__.__name__ == 'JClass':
+import {{m.type.package}}.{{m.type.name}};
+%end
+
 // import members!
 //import persistence.entities.StudyTheme;
 
-public class Test{{cls.name.lower()}} {
+public class Test{{cls.name}} {
 
 	private {{cls.name}}DAO {{cls.name.lower()}}DAO = null;
 	private long {{cls.name.lower()}}ID = 0;
+    
+    %for m in cls.members:
+        %if m.visibility == 'public':
+            %if m.upper != '*' and m.type.__class__.__name__ == 'JClass':
+    {{m.type.name}} {{m.name.lower()}} = null;
+            %end
+        %end
+    %end
 
 	@BeforeClass
 	public void oneTimeSetUp() {
@@ -48,7 +76,12 @@ public class Test{{cls.name.lower()}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
-        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name)}})
+                %if m.type.__class__.__name__ == 'JClass':
+        {{m.name.lower()}} = {{defaultValue(m.type, m.name)}};
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
+                %else:
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name)}});
+                %end
             %end
         %end
         %end
@@ -73,7 +106,7 @@ public class Test{{cls.name.lower()}} {
         %end
         %end
 		
-		final int count = {{cls.name.lower()}}DAO.readAll{{cls.name}}().size();
+		final int count = {{cls.name.lower()}}DAO.readAll{{cls.name}}s().size();
 		Assert.assertEquals(count, 1);
 	}
 
@@ -83,7 +116,7 @@ public class Test{{cls.name.lower()}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
-        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}})
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
             %end
         %end
         %end
@@ -101,7 +134,7 @@ public class Test{{cls.name.lower()}} {
 	%test_dependency(cls, test_previous, 'update'+cls.name)
 	public void delete{{cls.name}}() {
 		{{cls.name}} {{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
-		{{cls.name.lower()}}DAO.deleteLecturer({{cls.name.lower()}});
+		{{cls.name.lower()}}DAO.delete{{cls.name}}({{cls.name.lower()}});
 		{{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
 		Assert.assertNull({{cls.name.lower()}});
 	}

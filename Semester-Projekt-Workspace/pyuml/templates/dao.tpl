@@ -26,7 +26,7 @@ public class {{cls.name}}DAO extends ADAO {
 		delete({{cls.name.lower()}});
 	}
     
-    public void deleteAll{{cls.name}}() {
+    public void deleteAll{{cls.name}}s() {
 		deleteAll({{cls.name}}.class);
 	}
 

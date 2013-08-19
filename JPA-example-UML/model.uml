@@ -255,10 +255,10 @@
   <Profile:Entity xmi:id="_DohHAAaWEeO-L_b5EsEbFA" base_Class="_fYB1sAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_GRc4IAaWEeO-L_b5EsEbFA" base_Class="_n2czgAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_HIw6oAaWEeO-L_b5EsEbFA" base_Class="_ovEdkAW_EeOUpP-d4VXN3A"/>
-  <Profile:Entity xmi:id="_OIfs4AaWEeO-L_b5EsEbFA" base_Class="_qGcgMAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_V3Cs8AaWEeO-L_b5EsEbFA" base_Class="_gOjOAAW_EeOUpP-d4VXN3A"/>
   <Profile:GeneratedValue xmi:id="_hrmgIAaWEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A"/>
   <Profile:MappedSuperClass xmi:id="_rAWgoAakEeO-L_b5EsEbFA" base_Class="_pYbZEAW-EeOUpP-d4VXN3A"/>
   <Profile:Column xmi:id="_n6i7YAamEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A" name="&quot;bullshit&quot;" nullable="true"/>
-  <Profile:Embeddable xmi:id="_ljPAMAjfEeOmY-yMc2Bqxw" base_Class="_keKpEAW_EeOUpP-d4VXN3A"/>
+  <Profile:Entity xmi:id="_SikHcAjmEeOPEcBOtpoXog" base_Class="_keKpEAW_EeOUpP-d4VXN3A"/>
+  <Profile:Embeddable xmi:id="_YdTnkAjmEeOPEcBOtpoXog" base_Class="_qGcgMAW_EeOUpP-d4VXN3A"/>
 </xmi:XMI>

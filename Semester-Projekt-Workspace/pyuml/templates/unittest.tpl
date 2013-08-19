@@ -94,7 +94,7 @@ public class Test{{cls.name}} {
         %end
         %end
 		
-		final int count = {{cls.name.lower()}}DAO.readAll{{cls.name}}().size();
+		final int count = {{cls.name.lower()}}DAO.readAll{{cls.name}}s().size();
 		Assert.assertEquals(count, 1);
 	}
 

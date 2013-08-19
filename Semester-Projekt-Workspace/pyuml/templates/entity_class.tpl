@@ -8,6 +8,13 @@ import javax.persistence.Column;
 %end
 
 %for m in cls.members:
+%if hasattr(m, 'umlnode') and 'GeneratedValue' in m.umlnode.profiles:
+import javax.persistence.GeneratedValue;
+%break
+%end
+%end
+
+%for m in cls.members:
 %if hasattr(m, 'umlnode') and 'Id' in m.umlnode.profiles:
 import javax.persistence.Id;
 %break

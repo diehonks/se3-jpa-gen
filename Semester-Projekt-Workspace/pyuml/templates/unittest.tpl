@@ -44,12 +44,9 @@ import java.util.ArrayList;
 %end
 %end
 
-%if m.type.__class__.__name__ == 'JClass':
+%for m in cls.members:
 import {{m.type.package}}.{{m.type.name}};
 %end
-
-// import members!
-//import persistence.entities.StudyTheme;
 
 public class Test{{cls.name}} {
 

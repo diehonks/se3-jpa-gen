@@ -1,25 +1,23 @@
 package {{cls.package}};
 
-%for m in cls.members:
-%if hasattr(m, 'umlnode') and 'Column' in m.umlnode.profiles:
-import javax.persistence.Column;
-%break
-%end
-%end
-
-%for m in cls.members:
-%if hasattr(m, 'umlnode') and 'GeneratedValue' in m.umlnode.profiles:
-import javax.persistence.GeneratedValue;
-%break
-%end
+%def profile_imports(profile_name_import_dict):
+    %profiles = set()
+    %for m in cls.members:
+        %if hasattr(m, 'umlnode'):
+            %profiles = profiles.union(m.umlnode.profiles)
+        %end
+    %end
+    %for profile in profiles:
+import {{profile_name_import_dict[profile]}};
+    %end
 %end
 
-%for m in cls.members:
-%if hasattr(m, 'umlnode') and 'Id' in m.umlnode.profiles:
-import javax.persistence.Id;
-%break
-%end
-%end
+%profile_imports({
+%'Column': 'javax.persistence.Column',
+%'GeneratedValue': 'javax.persistence.GeneratedValue',
+%'Id': 'javax.persistence.Id',
+%})
+
 
 %for m in cls.members:
 %if '@ManyToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':

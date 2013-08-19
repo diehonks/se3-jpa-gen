@@ -1,7 +1,7 @@
 import shutil
 import os
 
-OUTPUT_FOLDER = 'src/main'
+OUTPUT_FOLDER = 'src'
 UML_FILE = "../../JPA-example-UML/model.uml"
 TEMPLATES = 'bottle_templates'
 
@@ -37,7 +37,7 @@ def mkdir_ignore(dirname):
 from bottle import template
 for packagename, pkgcontent in umljava.packages.items():
     # create POJOS
-    pkgdir = os.path.join(OUTPUT_FOLDER, 'java', packagename.replace('.','/'))
+    pkgdir = os.path.join(OUTPUT_FOLDER, 'main', packagename.replace('.','/'))
     mkdir_ignore(pkgdir)
     everything_in_package = pkgcontent['classes']+pkgcontent['interfaces']+pkgcontent['enums']
     for e in everything_in_package:

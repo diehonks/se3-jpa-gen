@@ -15,6 +15,8 @@
 %elif type.__class__.__name__ == 'JPrimitive':
     %if type.name == 'String':
         %return '"%s%s%d"' % (name, type.name, n)
+    %elif type.name == 'Long':
+        %return 13*n
     %elif type.name == 'Double':
         %return 1.34*n
     %else:
@@ -44,7 +46,7 @@ import java.util.ArrayList;
 %end
 %end
 
-%for m in cls.members:
+%for m in cls.members_rec():
 import {{m.type.package}}.{{m.type.name}};
 %end
 
@@ -72,7 +74,7 @@ public class Test{{cls.name}} {
 		final {{cls.name}} {{cls.name.lower()}} = new {{cls.name}}();
 		
         
-        %for m in cls.members:
+        %for m in cls.members_rec():
         %if m.visibility == 'public':
             %if m.upper != '*':
                 %if m.type.__class__.__name__ == 'JClass':
@@ -97,7 +99,7 @@ public class Test{{cls.name}} {
 	%test_dependency(cls, test_previous, 'create'+cls.name)
 	public void read{{cls.name}}() {
 		final {{cls.name}} {{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
-        %for m in cls.members:
+        %for m in cls.members_rec():
         %if m.visibility == 'public':
             %if m.upper != '*':
                 %if m.type.__class__.__name__ == 'JClass':
@@ -118,12 +120,11 @@ public class Test{{cls.name}} {
     
 		final {{cls.name}} {{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
                 
-        %for m in cls.members:
+        %for m in cls.members_rec():
             %if m.visibility == 'public':
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
         {{m.name.lower()}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
-        {{m.type.name.lower()}}DAO.create{{m.type.name[0].upper()+m.type.name[1:]}}({{m.name.lower()}});
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
                     %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
@@ -135,7 +136,7 @@ public class Test{{cls.name}} {
 		{{cls.name.lower()}}DAO.update{{cls.name}}({{cls.name.lower()}});
 		
         final {{cls.name}} same{{cls.name}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
-        %for m in cls.members:
+        %for m in cls.members_rec():
             %if m.visibility == 'public':
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':

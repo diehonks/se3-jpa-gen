@@ -207,6 +207,7 @@ class JClass(object):
             if refgentype == 'uml:Class':
                 if self.inherits_from is None:
                     self.inherits_from = JClass(refgenereal)
+                    # print("%s inherits from %s " % (self.name, self.inherits_from.name))
                 else:
                     print("Java doesn't support multiple inheritance! %s"%
                           (umlnode))
@@ -215,6 +216,11 @@ class JClass(object):
             else:
                 print('unknown generalization: %s for %s' % (refgentype, umlnode))
     
+    def members_rec(self):
+        """returns all members and the members of any super classes"""
+        if not self.inherits_from is None:
+            return self.members + self.inherits_from.members_rec()
+        return self.members
 
     def __repr__(self):
         return """

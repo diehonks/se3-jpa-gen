@@ -104,10 +104,6 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_n2czgAW_EeOUpP-d4VXN3A" name="Lecturer">
         <generalization xmi:id="_AUl9YAXAEeOUpP-d4VXN3A" general="_ebRSgAW_EeOUpP-d4VXN3A"/>
-        <ownedAttribute xmi:id="_7PkkUAW_EeOUpP-d4VXN3A" name="studyTheme">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7PkkUQW_EeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7PkkUgW_EeOUpP-d4VXN3A" value="1"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_ovEdkAW_EeOUpP-d4VXN3A" name="Student">
         <generalization xmi:id="_A_bDEAXAEeOUpP-d4VXN3A" general="_ebRSgAW_EeOUpP-d4VXN3A"/>
@@ -180,16 +176,6 @@
         <ownedLiteral xmi:id="_NAgG8AXOEeOUpP-d4VXN3A" name="ARCHITECTURE"/>
         <ownedLiteral xmi:id="_OA9eYAXOEeOUpP-d4VXN3A" name="PSYCHOLOGY"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_Gvpz8wXOEeOUpP-d4VXN3A" name="core" memberEnd="_Gvpz9AXOEeOUpP-d4VXN3A _Gvpz8AXOEeOUpP-d4VXN3A" navigableOwnedEnd="_Gvpz8AXOEeOUpP-d4VXN3A">
-        <ownedEnd xmi:id="_Gvpz9AXOEeOUpP-d4VXN3A" name="lecturer" type="_n2czgAW_EeOUpP-d4VXN3A" association="_Gvpz8wXOEeOUpP-d4VXN3A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gvpz9QXOEeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gvpz9gXOEeOUpP-d4VXN3A" value="1"/>
-        </ownedEnd>
-        <ownedEnd xmi:id="_Gvpz8AXOEeOUpP-d4VXN3A" name="studyTheme" type="_DFgdcAXOEeOUpP-d4VXN3A" association="_Gvpz8wXOEeOUpP-d4VXN3A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Gvpz8QXOEeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Gvpz8gXOEeOUpP-d4VXN3A" value="*"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_HQxkAAXOEeOUpP-d4VXN3A" name="general" visibility="private" memberEnd="_HQxkBAXOEeOUpP-d4VXN3A _HQxkAQXOEeOUpP-d4VXN3A" navigableOwnedEnd="_HQxkBAXOEeOUpP-d4VXN3A">
         <ownedEnd xmi:id="_HQxkBAXOEeOUpP-d4VXN3A" name="studyTheme" type="_DFgdcAXOEeOUpP-d4VXN3A" association="_HQxkAAXOEeOUpP-d4VXN3A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HQxkBQXOEeOUpP-d4VXN3A" value="1"/>
@@ -224,6 +210,26 @@
         <ownedEnd xmi:id="_3J2n4Qj7EeOFoNtWhz6bvw" name="course" type="_fYB1sAW_EeOUpP-d4VXN3A" association="_3J2n4Aj7EeOFoNtWhz6bvw">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3J2n4gj7EeOFoNtWhz6bvw" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3J2n4wj7EeOFoNtWhz6bvw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_lq_SYAj9EeO70dPWW_5EmQ" name="core" memberEnd="_lq_SYQj9EeO70dPWW_5EmQ _lq-rUAj9EeO70dPWW_5EmQ" navigableOwnedEnd="_lq-rUAj9EeO70dPWW_5EmQ">
+        <ownedEnd xmi:id="_lq_SYQj9EeO70dPWW_5EmQ" name="lecturer" type="_n2czgAW_EeOUpP-d4VXN3A" association="_lq_SYAj9EeO70dPWW_5EmQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lq_SYgj9EeO70dPWW_5EmQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lq_SYwj9EeO70dPWW_5EmQ" value="1"/>
+        </ownedEnd>
+        <ownedEnd xmi:id="_lq-rUAj9EeO70dPWW_5EmQ" name="studyTheme" type="_DFgdcAXOEeOUpP-d4VXN3A" association="_lq_SYAj9EeO70dPWW_5EmQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lq-rUQj9EeO70dPWW_5EmQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lq-rUgj9EeO70dPWW_5EmQ" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_noRecwj9EeO70dPWW_5EmQ" name="belongsTo" memberEnd="_noRedAj9EeO70dPWW_5EmQ _noRecAj9EeO70dPWW_5EmQ" navigableOwnedEnd="_noRecAj9EeO70dPWW_5EmQ">
+        <ownedEnd xmi:id="_noRedAj9EeO70dPWW_5EmQ" name="studyPath" type="_gOjOAAW_EeOUpP-d4VXN3A" association="_noRecwj9EeO70dPWW_5EmQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_noRedQj9EeO70dPWW_5EmQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_noRedgj9EeO70dPWW_5EmQ" value="1"/>
+        </ownedEnd>
+        <ownedEnd xmi:id="_noRecAj9EeO70dPWW_5EmQ" name="studyTheme" type="_DFgdcAXOEeOUpP-d4VXN3A" association="_noRecwj9EeO70dPWW_5EmQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_noRecQj9EeO70dPWW_5EmQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_noRecgj9EeO70dPWW_5EmQ" value="1"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

@@ -84,8 +84,10 @@ class PyUMLJava(object):
             obj = JClass.byName(classname)
             if obj is not None:
                 return obj
-            print('Class for Association not Found! %s Creating one on the fly.' % umlclass)
-            return JClass(umlclass)
+            obj = JEnum.byName(classname)
+            if obj is not None:
+                return obj
+            raise Exception('Class for Association not Found! %s Creating one on the fly.' % umlclass)
         else:
             # primitive type
             try:
@@ -160,7 +162,15 @@ class JOperation(object):
         ''' % (self.visibility, self.returns, self.name)
         
 class JEnum(object):
+    ENUMS = []
+    
+    def byName(name):
+        for e in JEnum.ENUMS:
+            if e.name == name:
+                return e
+    
     def __init__(self, umlnode):
+        self.ENUMS.append(self)
         self.umlnode = umlnode
         self.package = umlnode.parent.attrs['name']
         self.name = umlnode.attrs['name']
@@ -186,7 +196,7 @@ class JClass(object):
         self.abstract = umlnode.attrs.get('abstract', 'false') == 'true'
         self.members = []
         for e in umlnode.getChildByTagName('ownedAttribute'):
-            if not 'association' in e.attrs:
+            if not 'association' in e.attrs and len(e.getChildByTagName('type')) > 0:
                 self.members.append(JMemberPrimitive(e))
         self.operations = [JOperation(e) for e in umlnode.getChildByTagName('ownedOperation')]
         self.inherits_from = None

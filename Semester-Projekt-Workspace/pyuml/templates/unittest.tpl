@@ -101,7 +101,11 @@ public class Test{{cls.name}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
+                %if m.type.__class__.__name__ == 'JClass':
+        Assert.assertEquals({{cls.name.lower()}}.get{{m.name[0].upper()+m.name[1:]}}(), {{m.name.lower()}});
+                %else:
         Assert.assertEquals({{cls.name.lower()}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name)}});
+                %end
             %end
         %end
         %end
@@ -116,7 +120,9 @@ public class Test{{cls.name}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
+                %if not m.type.__class__.__name__ == 'JClass':
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
+                %end
             %end
         %end
         %end
@@ -125,6 +131,7 @@ public class Test{{cls.name}} {
         %for m in cls.members:
         %if m.visibility == 'public':
             %if m.upper != '*':
+        Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name, 2)}});
         Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name, 2)}});
             %end
         %end

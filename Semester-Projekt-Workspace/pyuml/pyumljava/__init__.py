@@ -183,6 +183,7 @@ class JClass(object):
         self.umlnode = umlnode
         self.name = umlnode.attrs['name']
         self.package = umlnode.parent.attrs['name']
+        self.abstract = umlnode.attrs.get('abstract', 'false') == 'true'
         self.members = []
         for e in umlnode.getChildByTagName('ownedAttribute'):
             if not 'association' in e.attrs:

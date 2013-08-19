@@ -1,7 +1,7 @@
 import shutil
 import os
 
-OUTPUT_FOLDER = 'src/main/java'
+OUTPUT_FOLDER = 'src/main'
 UML_FILE = "../../JPA-example-UML/model.uml"
 TEMPLATES = 'bottle_templates'
 
@@ -37,7 +37,7 @@ def mkdir_ignore(dirname):
 from bottle import template
 for packagename, pkgcontent in umljava.packages.items():
     # create POJOS
-    pkgdir = os.path.join(OUTPUT_FOLDER, packagename.replace('.','/'))
+    pkgdir = os.path.join(OUTPUT_FOLDER, 'java', packagename.replace('.','/'))
     mkdir_ignore(pkgdir)
     everything_in_package = pkgcontent['classes']+pkgcontent['interfaces']+pkgcontent['enums']
     for e in everything_in_package:
@@ -48,13 +48,32 @@ for packagename, pkgcontent in umljava.packages.items():
     
     # create DAOS
     daopackage = '.'.join(packagename.split('.')[:-1])+'.daos'
-    daopkgdir = os.path.join(OUTPUT_FOLDER, daopackage.replace('.','/'))
+    daopkgdir = os.path.join(OUTPUT_FOLDER, 'java', daopackage.replace('.','/'))
     mkdir_ignore(daopkgdir)
     for cls in pkgcontent['classes']:
+        if cls.abstract or not 'Entity' in cls.umlnode.profiles:
+            # builod DAOs only for non-abstract @Entity classes
+            continue
         rendered = template('dao', template_lookup=['templates'], cls=cls, daopackage=daopackage)
         filename = cls.name+'DAO.java'
         with open(os.path.join(daopkgdir, filename), 'w') as daofile:
             daofile.write(rendered)
+    
+    unittestpkg = 'unittest'
+    testpkgdir = os.path.join(OUTPUT_FOLDER, 'test', unittestpkg)
+    mkdir_ignore(testpkgdir)
+    test_previous = ''
+    # create tests
+    for cls in pkgcontent['classes']:
+        if cls.abstract or not 'Entity' in cls.umlnode.profiles:
+            # build tests only for DAO classes
+            continue
+        rendered = template('unittest', template_lookup=['templates'],
+                            cls=cls, daopackage=daopackage, test_previous=test_previous)
+        filename = 'Test'+cls.name+'.java'
+        with open(os.path.join(testpkgdir, filename), 'w') as daofile:
+            daofile.write(rendered)
+        test_previous = 'Test'+cls.name
             
 
 

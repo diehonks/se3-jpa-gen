@@ -119,7 +119,7 @@ public class Test{{cls.name}} {
 	%test_dependency(cls, test_previous, 'read'+cls.name)
 	public void update{{cls.name}}() {
     
-		final {{cls.name}} {{cls.name.lower()}} = {{cls.name}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
+		final {{cls.name}} {{cls.name.lower()}} = {{cls.name.lower()}}DAO.read{{cls.name}}({{cls.name.lower()}}ID);
                 
         %for m in cls.members:
             %if m.visibility == 'public':

@@ -251,7 +251,7 @@
   <Profile:Entity xmi:id="_V3Cs8AaWEeO-L_b5EsEbFA" base_Class="_gOjOAAW_EeOUpP-d4VXN3A"/>
   <Profile:GeneratedValue xmi:id="_hrmgIAaWEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A"/>
   <Profile:MappedSuperClass xmi:id="_rAWgoAakEeO-L_b5EsEbFA" base_Class="_pYbZEAW-EeOUpP-d4VXN3A"/>
-  <Profile:Column xmi:id="_n6i7YAamEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A" name="&quot;bullshit&quot;" nullable="true"/>
   <Profile:Entity xmi:id="_SikHcAjmEeOPEcBOtpoXog" base_Class="_keKpEAW_EeOUpP-d4VXN3A"/>
   <Profile:Embeddable xmi:id="_YdTnkAjmEeOPEcBOtpoXog" base_Class="_qGcgMAW_EeOUpP-d4VXN3A"/>
+  <Profile:Column xmi:id="__lK0EAkLEeO70dPWW_5EmQ" base_Property="_fA-cEAXJEeOUpP-d4VXN3A"/>
 </xmi:XMI>

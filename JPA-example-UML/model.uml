@@ -71,10 +71,14 @@
             <value xsi:nil="true"/>
           </defaultValue>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_3J0ysAj7EeOFoNtWhz6bvw" name="period" type="_qGcgMAW_EeOUpP-d4VXN3A" association="_3J2n4Aj7EeOFoNtWhz6bvw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3J0ysQj7EeOFoNtWhz6bvw" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3J0ysgj7EeOFoNtWhz6bvw" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_gOjOAAW_EeOUpP-d4VXN3A" name="StudyPath">
         <generalization xmi:id="_JB5rwAXAEeOUpP-d4VXN3A" general="_pYbZEAW-EeOUpP-d4VXN3A"/>
-        <ownedAttribute xmi:id="_yUYK8AW_EeOUpP-d4VXN3A" name="studyTheme" type="_r0gkgAW_EeOUpP-d4VXN3A" association="_yUYyAAW_EeOUpP-d4VXN3A">
+        <ownedAttribute xmi:id="_yUYK8AW_EeOUpP-d4VXN3A" name="studyTheme">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yUYK8QW_EeOUpP-d4VXN3A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yUYK8gW_EeOUpP-d4VXN3A" value="1"/>
         </ownedAttribute>
@@ -100,7 +104,7 @@
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_n2czgAW_EeOUpP-d4VXN3A" name="Lecturer">
         <generalization xmi:id="_AUl9YAXAEeOUpP-d4VXN3A" general="_ebRSgAW_EeOUpP-d4VXN3A"/>
-        <ownedAttribute xmi:id="_7PkkUAW_EeOUpP-d4VXN3A" name="studyTheme" type="_r0gkgAW_EeOUpP-d4VXN3A" association="_7PlLYAW_EeOUpP-d4VXN3A">
+        <ownedAttribute xmi:id="_7PkkUAW_EeOUpP-d4VXN3A" name="studyTheme">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7PkkUQW_EeOUpP-d4VXN3A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7PkkUgW_EeOUpP-d4VXN3A" value="1"/>
         </ownedAttribute>
@@ -129,23 +133,6 @@
           </defaultValue>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_r0gkgAW_EeOUpP-d4VXN3A" name="StudyTheme"/>
-      <packagedElement xmi:type="uml:Association" xmi:id="_wIneAAW_EeOUpP-d4VXN3A" name="timeRange" memberEnd="_wIneAQW_EeOUpP-d4VXN3A _wImP4AW_EeOUpP-d4VXN3A" navigableOwnedEnd="_wImP4AW_EeOUpP-d4VXN3A">
-        <ownedEnd xmi:id="_wIneAQW_EeOUpP-d4VXN3A" name="course" type="_fYB1sAW_EeOUpP-d4VXN3A" association="_wIneAAW_EeOUpP-d4VXN3A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wIneAgW_EeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wIneAwW_EeOUpP-d4VXN3A" value="1"/>
-        </ownedEnd>
-        <ownedEnd xmi:id="_wImP4AW_EeOUpP-d4VXN3A" name="period" type="_qGcgMAW_EeOUpP-d4VXN3A" association="_wIneAAW_EeOUpP-d4VXN3A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wImP4QW_EeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wImP4gW_EeOUpP-d4VXN3A" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_yUYyAAW_EeOUpP-d4VXN3A" name="studyPath_studyTheme_1" memberEnd="_yUYyAQW_EeOUpP-d4VXN3A _yUYK8AW_EeOUpP-d4VXN3A">
-        <ownedEnd xmi:id="_yUYyAQW_EeOUpP-d4VXN3A" name="studyPath" type="_gOjOAAW_EeOUpP-d4VXN3A" association="_yUYyAAW_EeOUpP-d4VXN3A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yUYyAgW_EeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yUYyAwW_EeOUpP-d4VXN3A" value="1"/>
-        </ownedEnd>
-      </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_6QzO8AW_EeOUpP-d4VXN3A" name="belongsTo" memberEnd="_6QzO8QW_EeOUpP-d4VXN3A _6Qyn4AW_EeOUpP-d4VXN3A" navigableOwnedEnd="_6Qyn4AW_EeOUpP-d4VXN3A">
         <ownedEnd xmi:id="_6Qyn4AW_EeOUpP-d4VXN3A" name="student" type="_ovEdkAW_EeOUpP-d4VXN3A" association="_6QzO8AW_EeOUpP-d4VXN3A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6Qyn4QW_EeOUpP-d4VXN3A" value="1"/>
@@ -154,12 +141,6 @@
         <ownedEnd xmi:id="_6QzO8QW_EeOUpP-d4VXN3A" name="studenCourseGrade" type="_keKpEAW_EeOUpP-d4VXN3A" association="_6QzO8AW_EeOUpP-d4VXN3A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6QzO8gW_EeOUpP-d4VXN3A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_6QzO8wW_EeOUpP-d4VXN3A" value="1"/>
-        </ownedEnd>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="_7PlLYAW_EeOUpP-d4VXN3A" name="lecturer_studyTheme_1" memberEnd="_7PlLYQW_EeOUpP-d4VXN3A _7PkkUAW_EeOUpP-d4VXN3A">
-        <ownedEnd xmi:id="_7PlLYQW_EeOUpP-d4VXN3A" name="lecturer" type="_n2czgAW_EeOUpP-d4VXN3A" association="_7PlLYAW_EeOUpP-d4VXN3A">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7PlLYgW_EeOUpP-d4VXN3A" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7PlLYwW_EeOUpP-d4VXN3A" value="1"/>
         </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_9ir2cgW_EeOUpP-d4VXN3A" name="isPartOf" memberEnd="_9isdgAW_EeOUpP-d4VXN3A _9irPYAW_EeOUpP-d4VXN3A" navigableOwnedEnd="_9irPYAW_EeOUpP-d4VXN3A">
@@ -237,6 +218,12 @@
         <ownedEnd xmi:id="_CBo_4AaCEeOZFfJOgcgP1A" name="lecturer" type="_n2czgAW_EeOUpP-d4VXN3A" association="_CBpm8AaCEeOZFfJOgcgP1A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_CBo_4QaCEeOZFfJOgcgP1A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_CBo_4gaCEeOZFfJOgcgP1A" value="*"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_3J2n4Aj7EeOFoNtWhz6bvw" name="course_period_1" memberEnd="_3J2n4Qj7EeOFoNtWhz6bvw _3J0ysAj7EeOFoNtWhz6bvw">
+        <ownedEnd xmi:id="_3J2n4Qj7EeOFoNtWhz6bvw" name="course" type="_fYB1sAW_EeOUpP-d4VXN3A" association="_3J2n4Aj7EeOFoNtWhz6bvw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3J2n4gj7EeOFoNtWhz6bvw" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3J2n4wj7EeOFoNtWhz6bvw" value="1"/>
         </ownedEnd>
       </packagedElement>
     </packagedElement>

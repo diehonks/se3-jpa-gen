@@ -16,6 +16,7 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_br0psAW_EeOUpP-d4VXN3A" name="Address">
+        <generalization xmi:id="_8GrNYAjeEeOmY-yMc2Bqxw" general="_pYbZEAW-EeOUpP-d4VXN3A"/>
         <ownedAttribute xmi:id="_BZrVIAXLEeOUpP-d4VXN3A" name="houseNumber" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Bse8YAXLEeOUpP-d4VXN3A" value="1"/>
@@ -42,6 +43,7 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_ebRSgAW_EeOUpP-d4VXN3A" name="APerson">
+        <generalization xmi:id="_-smGwAjeEeOmY-yMc2Bqxw" general="_pYbZEAW-EeOUpP-d4VXN3A"/>
         <ownedAttribute xmi:id="_uw94IAXLEeOUpP-d4VXN3A" name="fristName" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_vD3mAAXLEeOUpP-d4VXN3A" value="1"/>
@@ -60,6 +62,7 @@
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_fYB1sAW_EeOUpP-d4VXN3A" name="Course">
+        <generalization xmi:id="_YXeJgAjfEeOmY-yMc2Bqxw" general="_pYbZEAW-EeOUpP-d4VXN3A"/>
         <ownedAttribute xmi:id="_TwkqUAaDEeOZFfJOgcgP1A" name="name" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T_5fwAaDEeOZFfJOgcgP1A" value="1"/>
@@ -84,7 +87,7 @@
           </defaultValue>
         </ownedAttribute>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_keKpEAW_EeOUpP-d4VXN3A" name="StudentCourseGrade">
+      <packagedElement xmi:type="uml:Class" xmi:id="_keKpEAW_EeOUpP-d4VXN3A" name="StudentCourseGrade" visibility="private">
         <generalization xmi:id="_KquqwAXAEeOUpP-d4VXN3A" general="_pYbZEAW-EeOUpP-d4VXN3A"/>
         <ownedAttribute xmi:id="_7nznsAXLEeOUpP-d4VXN3A" name="grade" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Real"/>
@@ -253,9 +256,9 @@
   <Profile:Entity xmi:id="_GRc4IAaWEeO-L_b5EsEbFA" base_Class="_n2czgAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_HIw6oAaWEeO-L_b5EsEbFA" base_Class="_ovEdkAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_OIfs4AaWEeO-L_b5EsEbFA" base_Class="_qGcgMAW_EeOUpP-d4VXN3A"/>
-  <Profile:Entity xmi:id="_SfjMsAaWEeO-L_b5EsEbFA" base_Class="_keKpEAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_V3Cs8AaWEeO-L_b5EsEbFA" base_Class="_gOjOAAW_EeOUpP-d4VXN3A"/>
   <Profile:GeneratedValue xmi:id="_hrmgIAaWEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A"/>
   <Profile:MappedSuperClass xmi:id="_rAWgoAakEeO-L_b5EsEbFA" base_Class="_pYbZEAW-EeOUpP-d4VXN3A"/>
   <Profile:Column xmi:id="_n6i7YAamEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A" name="&quot;bullshit&quot;" nullable="true"/>
+  <Profile:Embeddable xmi:id="_ljPAMAjfEeOmY-yMc2Bqxw" base_Class="_keKpEAW_EeOUpP-d4VXN3A"/>
 </xmi:XMI>

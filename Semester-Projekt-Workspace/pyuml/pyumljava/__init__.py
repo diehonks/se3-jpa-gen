@@ -218,9 +218,10 @@ class JClass(object):
     
     def members_rec(self):
         """returns all members and the members of any super classes"""
+        all_members_but_id = [m for m in self.members if m.name != 'id']
         if not self.inherits_from is None:
-            return self.members + self.inherits_from.members_rec()
-        return self.members
+            return all_members_but_id + self.inherits_from.members_rec()
+        return all_members_but_id
 
     def __repr__(self):
         return """

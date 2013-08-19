@@ -36,7 +36,7 @@ List<\\
         %print_profile_attr(m.umlnode.profiles['Column']) 
     )
     %end
-    %if 'Profile:GeneratedValue' in m.umlnode.profiles:
+    %if 'GeneratedValue' in m.umlnode.profiles:
     @GeneratedValue
     %end
 %end

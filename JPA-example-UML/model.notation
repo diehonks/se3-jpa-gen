@@ -259,7 +259,7 @@
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gOlqRAW_EeOUpP-d4VXN3A"/>
         </children>
         <element xmi:type="uml:Class" href="model.uml#_gOjOAAW_EeOUpP-d4VXN3A"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gOkcIQW_EeOUpP-d4VXN3A" x="715" y="9"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gOkcIQW_EeOUpP-d4VXN3A" x="775" y="21"/>
       </children>
       <children xmi:type="notation:Shape" xmi:id="_keL3MAW_EeOUpP-d4VXN3A" type="3010" fontName="Sans" fontHeight="10" lineColor="0">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_keMeQAW_EeOUpP-d4VXN3A" source="ShadowFigure">

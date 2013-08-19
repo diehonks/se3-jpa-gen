@@ -1,8 +1,16 @@
 %def typedef(cls, m):
-    %if cls.package == m.type.package:
- {{m.type.name}}\\
+    %if hasattr(m, 'umlnode') and 'Unboxed' in m.umlnode.profiles:
+        %if m.type.name == 'Long':
+    long
+        %else:
+    CANNOT UNBOX TYPE {{m.type.name}}
+        %end
     %else:
- {{m.type.package}}.{{m.type.name}}\\
+        %if cls.package == m.type.package:
+    {{m.type.name}}\\
+        %else:
+    {{m.type.package}}.{{m.type.name}}\\
+        %end
     %end
 %end
 
@@ -27,16 +35,16 @@ List<\\
 %end
 
 %for m in cls.members:
-%if hasattr(m, 'umlnode'):
-    %if 'Id' in m.umlnode.profiles:
+    %if hasattr(m, 'umlnode'):
+        %if 'Id' in m.umlnode.profiles:
     @Id
-    %end
-    %if 'Column' in m.umlnode.profiles:
+        %end
+        %if 'Column' in m.umlnode.profiles:
     @Column( \\
         %print_profile_attr(m.umlnode.profiles['Column']) 
     )
-    %end
-    %if 'GeneratedValue' in m.umlnode.profiles:
+        %end
+        %if 'GeneratedValue' in m.umlnode.profiles:
     @GeneratedValue
     %end
 %end

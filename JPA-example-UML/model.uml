@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Profile="http:///schemas/Profile/_KPhzEAkOEeO70dPWW_5EmQ/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/Profile/_KPhzEAkOEeO70dPWW_5EmQ/5 extension.profile.uml#_KPldcAkOEeO70dPWW_5EmQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Profile="http:///schemas/Profile/_EIX_4AkUEeO70dPWW_5EmQ/8" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/Profile/_EIX_4AkUEeO70dPWW_5EmQ/8 extension.profile.uml#_EIYm8AkUEeO70dPWW_5EmQ">
   <uml:Model xmi:id="_hYZAYAW-EeOUpP-d4VXN3A" name="Model" visibility="private">
     <packageImport xmi:id="_hYZAYQW-EeOUpP-d4VXN3A">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -236,13 +236,12 @@
     <packagedElement xmi:type="uml:Component" xmi:id="_n6JLQAXAEeOUpP-d4VXN3A" name="Component1"/>
     <profileApplication xmi:id="_QPdgwAaTEeO-L_b5EsEbFA">
       <eAnnotations xmi:id="_QP8o8AaTEeO-L_b5EsEbFA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="extension.profile.uml#_KPldcAkOEeO70dPWW_5EmQ"/>
+        <references xmi:type="ecore:EPackage" href="extension.profile.uml#_EIYm8AkUEeO70dPWW_5EmQ"/>
       </eAnnotations>
       <appliedProfile href="extension.profile.uml#_WtFWYAaREeOZFfJOgcgP1A"/>
     </profileApplication>
   </uml:Model>
   <Profile:Id xmi:id="_Trj0MAaTEeO-L_b5EsEbFA" base_Property="_fA-cEAXJEeOUpP-d4VXN3A"/>
-  <Profile:Id xmi:id="_3asxMAaTEeO-L_b5EsEbFA" base_Property="_BZrVIAXLEeOUpP-d4VXN3A"/>
   <Profile:MappedSuperClass xmi:id="_wxq80AaVEeO-L_b5EsEbFA" base_Class="_ebRSgAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_zr6gYAaVEeO-L_b5EsEbFA" base_Class="_br0psAW_EeOUpP-d4VXN3A"/>
   <Profile:Entity xmi:id="_DohHAAaWEeO-L_b5EsEbFA" base_Class="_fYB1sAW_EeOUpP-d4VXN3A"/>
@@ -254,4 +253,5 @@
   <Profile:Entity xmi:id="_SikHcAjmEeOPEcBOtpoXog" base_Class="_keKpEAW_EeOUpP-d4VXN3A"/>
   <Profile:Embeddable xmi:id="_YdTnkAjmEeOPEcBOtpoXog" base_Class="_qGcgMAW_EeOUpP-d4VXN3A"/>
   <Profile:Column xmi:id="__lK0EAkLEeO70dPWW_5EmQ" base_Property="_fA-cEAXJEeOUpP-d4VXN3A" nullable="false"/>
+  <Profile:Unboxed xmi:id="_F-E9QAkUEeO70dPWW_5EmQ" base_Property="_fA-cEAXJEeOUpP-d4VXN3A"/>
 </xmi:XMI>

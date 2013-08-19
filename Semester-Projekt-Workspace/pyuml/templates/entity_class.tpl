@@ -8,7 +8,9 @@ package {{cls.package}};
         %end
     %end
     %for profile in profiles:
+        %if profile in profile_name_import_dict:
 import {{profile_name_import_dict[profile]}};
+        %end
     %end
 %end
 

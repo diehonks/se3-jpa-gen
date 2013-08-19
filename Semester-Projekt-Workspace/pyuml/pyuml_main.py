@@ -78,6 +78,21 @@ for packagename, pkgcontent in umljava.packages.items():
         with open(os.path.join(testpkgdir, filename), 'w') as daofile:
             daofile.write(rendered)
         test_previous = 'Test'+cls.name
-            
+    
+    #persistence xml
+    resdir = os.path.join(OUTPUT_FOLDER, 'ressources', 'META-INF')
+    mkdir_ignore(resdir)
+    persistent_classes = []
+    for cls in pkgcontent['classes']:
+        if cls.abstract or not 'Entity' in cls.umlnode.profiles:
+            # build tests only for DAO classes
+            continue
+        persistent_classes.append(cls)
+    rendered = template('persistence.xml', template_lookup=['templates'],
+                        classes=persistent_classes)
+    filename = 'persistence.xml'
+    with open(os.path.join(resdir, filename), 'w') as persxmlfile:
+        persxmlfile.write(rendered)
+
 
 

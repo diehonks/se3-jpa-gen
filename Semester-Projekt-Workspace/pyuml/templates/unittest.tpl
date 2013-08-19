@@ -64,8 +64,8 @@ public class Test{{cls.name}} {
         %if m.visibility == 'public':
             %if m.upper != '*':
                 %if m.type.__class__.__name__ == 'JClass':
-                    {{m.name.lower()}} = {{defaultValue(m.type, m.name)}};
-                    {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
+        {{m.name.lower()}} = {{defaultValue(m.type, m.name)}};
+        {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
                 %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name)}});
                 %end

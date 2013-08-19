@@ -48,7 +48,7 @@ for packagename, pkgcontent in umljava.packages.items():
     
     # create DAOS
     daopackage = '.'.join(packagename.split('.')[:-1])+'.daos'
-    daopkgdir = os.path.join(OUTPUT_FOLDER, 'java', daopackage.replace('.','/'))
+    daopkgdir = os.path.join(OUTPUT_FOLDER, 'main', daopackage.replace('.','/'))
     mkdir_ignore(daopkgdir)
     for cls in pkgcontent['classes']:
         if cls.abstract or not 'Entity' in cls.umlnode.profiles:

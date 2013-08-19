@@ -58,6 +58,10 @@ for packagename, pkgcontent in umljava.packages.items():
         filename = cls.name+'DAO.java'
         with open(os.path.join(daopkgdir, filename), 'w') as daofile:
             daofile.write(rendered)
+    rendered = template('adao', template_lookup=['templates'])
+    filename = 'ADAO.java'
+    with open(os.path.join(daopkgdir, filename), 'w') as daofile:
+        daofile.write(rendered)
     
     unittestpkg = 'unittest'
     testpkgdir = os.path.join(OUTPUT_FOLDER, 'test', unittestpkg)

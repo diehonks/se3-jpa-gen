@@ -13,7 +13,7 @@
 %if type.name == 'String':
 %return '"%s%s%d"' % (name, type.name, n)
 %else:
-%return 'NOT_DEFAULT_TYPE_IMPLEMENTED'
+%return 'NOT_DEFAULT_TYPE_IMPLEMENTED (%s)' % type.__class__
 %end
 %end
 

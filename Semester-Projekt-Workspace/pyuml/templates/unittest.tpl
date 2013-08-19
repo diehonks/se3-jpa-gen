@@ -34,6 +34,18 @@ import org.testng.annotations.Test;
 import persistence.daos.{{cls.name}}DAO;
 import {{cls.package}}.{{cls.name}};
 
+%for m in cls.members:
+%if m.upper == '*':
+import java.util.List;
+import java.util.ArrayList;
+%break
+%end
+%end
+
+%if m.visibility == 'public' and m.type.__class__.__name__ == 'JClass':
+import {{m.type.package}}.{{m.type.name}};
+%end
+
 // import members!
 //import persistence.entities.StudyTheme;
 

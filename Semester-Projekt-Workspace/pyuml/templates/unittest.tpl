@@ -91,7 +91,6 @@ public class Test{{cls.name}} {
 		Assert.assertEquals({{cls.name.lower()}}ID, 0);
 		{{cls.name.lower()}}ID = {{cls.name.lower()}}DAO.create{{cls.name}}({{cls.name.lower()}}).getId();
 		Assert.assertEquals(({{cls.name.lower()}}ID > 0), true);
-		{{cls.name.lower()}}DAO.create{{cls.name}}(new {{cls.name}}());
 		Assert.assertEquals({{cls.name.lower()}}ID != {{cls.name.lower()}}DAO
             .create{{cls.name}}(new {{cls.name}}()).getId(), true);
 	}
@@ -112,7 +111,7 @@ public class Test{{cls.name}} {
         %end
 		
 		final int count = {{cls.name.lower()}}DAO.readAll{{cls.name}}s().size();
-		Assert.assertEquals(count, 1);
+		Assert.assertEquals(count, 2);
 	}
 
 	%test_dependency(cls, test_previous, 'read'+cls.name)

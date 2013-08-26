@@ -86,20 +86,39 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
     
     @Override
     public boolean equals(final Object obj) {
+        %if not cls.inherits_from is None:
+        if(!super.equals(obj)){
+            return false;
+        }
+        %else:
+        if (obj == this) {
+            return this;
+        }
         if (obj == null) {
             return false;
         }
         if (obj.getClass() != this.getClass()) {
             return false;
         }
-    %if 'Entity' in cls.umlnode.profiles:
+            %if 'Entity' in cls.umlnode.profiles or 'MappedSuperClass' in cls.umlnode.profiles:
         if (((AEntity) obj).getId() != getId()) {
             return false;
         }
-    %else:
+            %end
+        %end
+
         {{cls.name}} other = ({{cls.name}})obj;
         %for m in cls.members:
-            %if not hasattr(m.type, 'umlnode') or not 'Entity' in m.type.umlnode.profiles:
+            %if hasattr(m.type, 'umlnode'):
+                %if 'Entity' in m.type.umlnode.profiles:
+                    %continue
+                %end
+            %end
+            %if hasattr(m, 'umlnode'):
+                %if 'Unboxed' in m.umlnode.profiles:
+                    %continue
+                %end
+            %end
         
         if(this.get{{m.name[0].upper()+m.name[1:]}}() == null){
             if(other.get{{m.name[0].upper()+m.name[1:]}}() != null){
@@ -110,9 +129,7 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
                 return false;
             }
         }
-            %end
         %end
-    %end
         return true;
     }    
 }

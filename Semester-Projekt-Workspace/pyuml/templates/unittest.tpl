@@ -160,7 +160,7 @@ public class Test{{cls.name}} {
                         %end
         {{m.name.lower()}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
                         %if hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles:
-        {{m.name.lower()}} = {{m.type.name.lower()}}DAO.update{{m.type.name}}({{m.name.lower()}});
+        {{m.name.lower()}} = {{m.type.name.lower()}}DAO.create{{m.type.name}}({{m.name.lower()}});
                         %end
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
         
@@ -179,7 +179,7 @@ public class Test{{cls.name}} {
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
                         %if hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles:
-		Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}().getId(), {{m.name.lower()}}.getId());
+		Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{m.name.lower()}});
                         %else:
 		Assert.assertEquals(same{{cls.name}}.get{{m.name[0].upper()+m.name[1:]}}(), {{m.name.lower()}});
                         %end

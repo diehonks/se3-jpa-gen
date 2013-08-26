@@ -48,11 +48,27 @@ import java.util.ArrayList;
 
 %for m in cls.members_rec():
 import {{m.type.package}}.{{m.type.name}};
+    %isjclass = m.type.__class__.__name__ == 'JClass'
+    %isentity = hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles
+    %if isjclass and isentity and not m.type.abstract:
+import {{m.type.package[:m.type.package.rindex('.')]}}.daos.{{m.type.name}}DAO;
+    %end
 %end
 
 public class Test{{cls.name}} {
 
 	private {{cls.name}}DAO {{cls.name.lower()}}DAO = null;
+    
+    %#iterate over members to prepare DAOs for all entity classes
+    %for m in cls.members:
+        %isjclass = m.type.__class__.__name__ == 'JClass'
+        %isentity = hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles
+        %if isjclass and isentity and not m.type.abstract:
+    private {{m.type.name}}DAO {{m.type.name.lower()}}DAO = null;
+    private long {{m.type.name.lower()}}ID = 0;
+        %end
+    %end
+    
 	private long {{cls.name.lower()}}ID = 0;
     
     %for m in cls.members:
@@ -66,6 +82,14 @@ public class Test{{cls.name}} {
 	@BeforeClass
 	public void oneTimeSetUp() {
 		{{cls.name.lower()}}DAO = new {{cls.name}}DAO();
+        %#initialize member DAOs
+        %for m in cls.members:
+            %isjclass = m.type.__class__.__name__ == 'JClass'
+            %isentity = hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles
+            %if isjclass and isentity and not m.type.abstract:
+        {{m.type.name.lower()}}DAO = new {{m.type.name}}DAO();
+            %end
+        %end
 	}
 
 	%test_dependency(cls, test_previous, '')
@@ -80,6 +104,9 @@ public class Test{{cls.name}} {
                 %if m.type.__class__.__name__ == 'JClass':
         {{m.name.lower()}} = {{defaultValue(m.type, m.name)}};
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
+                    %if hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles:
+        {{m.type.name.lower()}}ID = {{m.type.name.lower()}}DAO.create{{m.type.name}}({{m.name.lower()}}).getId();
+                    %end
                 %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name)}});
                 %end
@@ -102,7 +129,12 @@ public class Test{{cls.name}} {
         %if m.visibility == 'public':
             %if m.upper != '*':
                 %if m.type.__class__.__name__ == 'JClass':
+                    %if hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles:
+                    %# we have to compare the ids of the persisted object instead of the objects themselves
+        Assert.assertTrue({{cls.name.lower()}}.get{{m.name[0].upper()+m.name[1:]}}().getId() == {{m.type.name.lower()}}ID);                        
+                    %else:
         Assert.assertEquals({{cls.name.lower()}}.get{{m.name[0].upper()+m.name[1:]}}(), {{m.name.lower()}});
+                    %end
                 %else:
         Assert.assertEquals({{cls.name.lower()}}.get{{m.name[0].upper()+m.name[1:]}}(), {{defaultValue(m.type, m.name)}});
                 %end
@@ -123,8 +155,15 @@ public class Test{{cls.name}} {
             %if m.visibility == 'public':
                 %if m.upper != '*':
                     %if m.type.__class__.__name__ == 'JClass':
+                        %if hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles:
+        Assert.assertTrue({{cls.name.lower()}}.get{{m.name[0].upper()+m.name[1:]}}().getId() == {{m.type.name.lower()}}ID);                        
+                        %end
         {{m.name.lower()}} = new {{m.type.name[0].upper()+m.type.name[1:]}}();
+                        %if hasattr(m.type, 'umlnode') and 'Entity' in m.type.umlnode.profiles:
+        {{m.type.name.lower()}}DAO.update{{m.type.name}}({{m.name.lower()}});
+                        %end
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{m.name.lower()}});
+        
                     %else:
         {{cls.name.lower()}}.set{{m.name[0].upper()+m.name[1:]}}({{defaultValue(m.type, m.name, 2)}});
                     %end

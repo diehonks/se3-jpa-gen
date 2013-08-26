@@ -84,5 +84,35 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
     
     %include gettersetter cls=cls
     
-    
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+    %if 'Entity' in cls.umlnode.profiles:
+        if (((AEntity) obj).getId() != getId()) {
+            return false;
+        }
+    %else:
+        {{cls.name}} other = ({{cls.name}})obj;
+        %for m in cls.members:
+            %if not hasattr(m.type, 'umlnode') or not 'Entity' in m.type.umlnode.profiles:
+        
+        if(this.get{{m.name[0].upper()+m.name[1:]}}() == null){
+            if(other.get{{m.name[0].upper()+m.name[1:]}}() != null){
+                return false;
+            }
+        } else {
+            if(!this.get{{m.name[0].upper()+m.name[1:]}}().equals(other.get{{m.name[0].upper()+m.name[1:]}}())){
+                return false;
+            }
+        }
+            %end
+        %end
+    %end
+        return true;
+    }    
 }

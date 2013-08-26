@@ -9,7 +9,6 @@ UNBOX TYPE {{m.type.name}} NOT IMPLEMENTED IN members.tpl
 {{m.type.name}} \\
     %end
 %end
-
 %def typedef_multiplicity(cls, m):
     %if m.upper == '*':
 List<\\
@@ -17,19 +16,16 @@ List<\\
 > {{m.name}} = new ArrayList<\\
 %typedef(cls, m)
 >();
-
     %else:
 %typedef(cls, m) 
 {{m.name}};
     %end
 %end
-
 %def print_profile_attr(profile):
     %i=0
     %a = [str(n)+'='+str(v) for n, v in profile.items()]
 {{', '.join(a)}} \\
 %end
-
 %for m in cls.members:
     %if hasattr(m, 'umlnode'):
         %if 'Id' in m.umlnode.profiles:

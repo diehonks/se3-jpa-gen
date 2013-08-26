@@ -1,5 +1,4 @@
 package {{cls.package}};
-
 %def profile_imports(profile_name_import_dict):
     %profiles = set()
     %for m in cls.members:
@@ -13,50 +12,41 @@ import {{profile_name_import_dict[profile]}};
         %end
     %end
 %end
-
 %for t in set([m.type for m in cls.members]):
     %if t.package != cls.package:
 import {{t.package}}.{{t.name}};
     %end
 %end
-
 %profile_imports({
 %'Column': 'javax.persistence.Column',
 %'GeneratedValue': 'javax.persistence.GeneratedValue',
 %'Id': 'javax.persistence.Id',
 %})
-
-
 %for m in cls.members:
-%if '@ManyToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
+    %if '@ManyToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
 import javax.persistence.ManyToMany;
-%break
+        %break
+    %end
 %end
-%end
-
 %for m in cls.members:
-%if '@OneToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
+    %if '@OneToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
 import javax.persistence.OneToMany;
-%break
+        %break
+    %end
 %end
-%end
-
 %for m in cls.members:
-%if '@OneToOne' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
+    %if '@OneToOne' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
 import javax.persistence.OneToOne;
-%break
+        %break
+    %end
 %end
-%end
-
 %for m in cls.members:
-%if m.upper == '*':
+    %if m.upper == '*':
 import java.util.List;
 import java.util.ArrayList;
-%break
+        %break
+    %end
 %end
-%end
-
-
 %if 'Entity' in cls.umlnode.profiles:
 import javax.persistence.Entity;
 
@@ -64,10 +54,12 @@ import javax.persistence.Entity;
 %end
 %if 'MappedSuperClass' in cls.umlnode.profiles:
 import javax.persistence.MappedSuperclass;
+
 @MappedSuperclass
 %end
 %if 'Embeddable' in cls.umlnode.profiles:
 import javax.persistence.Embeddable;
+
 @Embeddable
 %end
 public class {{cls.name}} \\
@@ -85,11 +77,8 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
     public {{cls.name}}(){
         //constructor stub!
     }
-    
     %include operations cls=cls
-    
     %include gettersetter cls=cls
-    
     @Override
     public boolean equals(final Object obj) {
         %if not cls.inherits_from is None:

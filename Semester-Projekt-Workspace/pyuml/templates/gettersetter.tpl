@@ -3,7 +3,6 @@
         return this.{{m.name}};
     }
 %end
-
 %def setter(m):
     public void set{{m.name[0].upper()+m.name[1:]}}({{m.type.name}} {{m.name}}){
         this.{{m.name}} = {{m.name}};
@@ -24,17 +23,20 @@
         return new ArrayList<{{m.type.name}}>(this.{{m.name}});
     }
 %end
-
-
 %for m in cls.members:
 %if m.visibility == 'public':
     %if m.upper == '*':
     %addToList(m)
+    
     %removeFromList(m)
+    
     %getFromList(m)
+    
     %else:
     %getter(m)
+    
     %setter(m)
+    
     %end
 %end
 %end

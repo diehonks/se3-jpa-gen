@@ -14,6 +14,12 @@ import {{profile_name_import_dict[profile]}};
     %end
 %end
 
+%for t in set([m.type for m in cls.members]):
+    %if t.package != cls.package:
+import {{t.package}}.{{t.name}};
+    %end
+%end
+
 %profile_imports({
 %'Column': 'javax.persistence.Column',
 %'GeneratedValue': 'javax.persistence.GeneratedValue',

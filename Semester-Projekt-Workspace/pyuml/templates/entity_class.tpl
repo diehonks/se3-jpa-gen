@@ -92,7 +92,7 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
         }
         %else:
         if (obj == this) {
-            return this;
+            return true;
         }
         if (obj == null) {
             return false;

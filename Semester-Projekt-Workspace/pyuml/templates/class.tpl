@@ -3,7 +3,7 @@ package {{cls.package}};
 %if 'Profile:Entity' in cls.umlnode.profiles:
 @Entity
 %end
-%if 'Profile:MappedSuperClass' in cls.umlnode.profiles:
+%if 'Profile:MappedSuperclass' in cls.umlnode.profiles:
 @MappedSuperclass
 %end
 %if 'Profile:Embeddable' in cls.umlnode.profiles:

@@ -114,7 +114,7 @@ implements {{', '.join([interface.name for interface in cls.implements])}}
         if (obj.getClass() != this.getClass()) {
             return false;
         }
-            %if 'Entity' in cls.umlnode.profiles or 'MappedSuperClass' in cls.umlnode.profiles:
+            %if 'Entity' in cls.umlnode.profiles or 'MappedSuperclass' in cls.umlnode.profiles:
         if (((AEntity) obj).getId() != getId()) {
             return false;
         }

@@ -62,7 +62,7 @@ class UMLParser:
                     for name, value in node.attributes.items():
                         if name.startswith('base_'):
                             node_with_profile = self.xmiid_map[value]
-                            profilename = node.tagName[8:]
+                            profilename = node.tagName.split(':')[1]
                             profile_attrs = {}
                             for name, value in node.attributes.items():
                                 if name.startswith('base_') or name == 'xmi:id':

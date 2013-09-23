@@ -84,8 +84,10 @@ for packagename, pkgcontent in umljava.packages.items():
     mkdir_ignore(resdir)
     persistent_classes = []
     for cls in pkgcontent['classes']:
-        if cls.abstract or not 'Entity' in cls.umlnode.profiles:
+        if cls.abstract:
             # build tests only for DAO classes
+            continue
+        if not ('Entity' in cls.umlnode.profiles or 'MappedSuperclass' in cls.umlnode.profiles):
             continue
         persistent_classes.append(cls)
     rendered = template('persistence.xml', template_lookup=['templates'],

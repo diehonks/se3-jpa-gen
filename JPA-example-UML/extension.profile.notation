@@ -122,7 +122,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cExP_AaVEeO-L_b5EsEbFA"/>
     </children>
     <element xmi:type="uml:Stereotype" href="extension.profile.uml#_cErwYAaVEeO-L_b5EsEbFA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cEwB0QaVEeO-L_b5EsEbFA" x="20" y="70" height="51"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cEwB0QaVEeO-L_b5EsEbFA" x="24" y="72" height="51"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_b-gacAaWEeO-L_b5EsEbFA" type="1026" fontName="Sans" fontHeight="10" lineColor="0">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_b-hBgAaWEeO-L_b5EsEbFA" source="ShadowFigure">

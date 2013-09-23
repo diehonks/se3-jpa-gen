@@ -1,4 +1,5 @@
 package {{cls.package}};
+
 %def profile_imports(profile_name_import_dict):
     %profiles = set()
     %for m in cls.members:

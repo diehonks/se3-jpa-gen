@@ -22,9 +22,7 @@ List<\\
     %end
 %end
 %def print_profile_attr(profile):
-    %i=0
-    %a = [str(n)+'='+str(v) for n, v in profile.items()]
-{{', '.join(a)}} \\
+{{', '.join([str(n)+'='+str(v) for n, v in profile.items()])}} \\
 %end
 %for m in cls.members:
     %if hasattr(m, 'umlnode'):

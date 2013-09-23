@@ -7,6 +7,12 @@ package {{cls.package}};
             %profiles = profiles.union(m.umlnode.profiles)
         %end
     %end
+    %for op in cls.operations:
+        %if hasattr(op, 'umlnode'):
+            %profiles = profiles.union(op.umlnode.profiles)
+        %end
+    %end
+    %profiles = profiles.union(cls.umlnode.profiles)
     %for profile in profiles:
         %if profile in profile_name_import_dict:
 import {{profile_name_import_dict[profile]}};
@@ -22,6 +28,18 @@ import {{t.package}}.{{t.name}};
 %'Column': 'javax.persistence.Column',
 %'GeneratedValue': 'javax.persistence.GeneratedValue',
 %'Id': 'javax.persistence.Id',
+%'PrePersist': 'javax.persistence.PrePersist',
+%'PostPresist': 'javax.persistence.PostPresist',
+%'PreRemove': 'javax.persistence.PreRemove',
+%'PostRemove': 'javax.persistence.PostRemove',
+%'PreUpdate': 'javax.persistence.PreUpdate',
+%'PostUpdate': 'javax.persistence.PostUpdate',
+%'PostLoad': 'javax.persistence.PostLoad',
+%'ExcludeSuperclassListeners': 'javax.persistence.ExcludeSuperclassListeners',
+%'Embeddable': 'javax.persistence.Embeddable',
+%'MappedSuperclass': 'javax.persistence.MappedSuperclass',
+%'Entity': 'javax.persistence.Entity',
+%'ExcludeDefaultListeners': 'javax.persistence.ExcludeDefaultListeners',
 %})
 %for m in cls.members:
     %if '@ManyToMany' == m.multiplicity and m.type.__class__.__name__ == 'JClass':
@@ -48,20 +66,21 @@ import java.util.ArrayList;
         %break
     %end
 %end
-%if 'Entity' in cls.umlnode.profiles:
-import javax.persistence.Entity;
 
+%if 'Entity' in cls.umlnode.profiles:
 @Entity
 %end
-%if 'MappedSuperClass' in cls.umlnode.profiles:
-import javax.persistence.MappedSuperclass;
-
+%if 'MappedSuperclass' in cls.umlnode.profiles:
 @MappedSuperclass
 %end
 %if 'Embeddable' in cls.umlnode.profiles:
-import javax.persistence.Embeddable;
-
 @Embeddable
+%end
+%if 'ExcludeSuperclassListeners' in cls.umlnode.profiles:
+@ExcludeSuperclassListeners
+%end
+%if 'ExcludeDefaultListeners' in cls.umlnode.profiles:
+@ExcludeDefaultListeners
 %end
 public class {{cls.name}} \\
 %if not cls.inherits_from is None:

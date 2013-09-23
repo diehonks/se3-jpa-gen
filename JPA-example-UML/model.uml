@@ -178,6 +178,10 @@
             <value xsi:nil="true"/>
           </defaultValue>
         </ownedAttribute>
+        <ownedOperation xmi:id="_HNl0MCR6EeOhOu_rq-Bvug" name="extend">
+          <ownedParameter xmi:id="_P1bzwCR6EeOhOu_rq-Bvug" name="extendBy" type="_qGcgMAW_EeOUpP-d4VXN3A" effect="update"/>
+          <ownedParameter xmi:id="_S3eBYCR6EeOhOu_rq-Bvug" name="returnValue" direction="return" effect="update"/>
+        </ownedOperation>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_6QzO8AW_EeOUpP-d4VXN3A" name="belongsTo" memberEnd="_6QzO8QW_EeOUpP-d4VXN3A _6Qyn4AW_EeOUpP-d4VXN3A" navigableOwnedEnd="_6Qyn4AW_EeOUpP-d4VXN3A">
         <ownedEnd xmi:id="_6Qyn4AW_EeOUpP-d4VXN3A" name="student" type="_ovEdkAW_EeOUpP-d4VXN3A" association="_6QzO8AW_EeOUpP-d4VXN3A">

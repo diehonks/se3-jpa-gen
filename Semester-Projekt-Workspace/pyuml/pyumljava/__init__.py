@@ -93,8 +93,8 @@ class PyUMLJava(object):
             try:
                 primitive = umlnode.getChildByTagName('type')[0]
             except IndexError:
-                print(umlnode)
-                raise
+                print('Error resolving type:'+ str(umlnode))
+                return None
             return PyUMLJava.PRIMITIVES[primitive.attrs['href']]
     
     def __repr__(self):
@@ -145,7 +145,7 @@ class JMemberPrimitive(JMember):
 
 class JOperation(object):
     DEFAULT_VISIBLITY = 'public'
-    def __init__(self, umlnode):
+    def __init__(self, umlnode, cls):
         self.umlnode = umlnode
         self.name = umlnode.attrs['name']
         self.constructor = self.name == umlnode.parent.attrs['name']
@@ -154,6 +154,9 @@ class JOperation(object):
         try:
             returnwrapper = self.umlnode.getChildByAttr('direction', 'return')[0]
             self.returns = PyUMLJava.resolve_type(returnwrapper)
+            if self.returns is None:
+                print('return type has no value, assuming return of same class')
+                self.returns = cls
         except IndexError:
             self.returns = None
     
@@ -198,7 +201,7 @@ class JClass(object):
         for e in umlnode.getChildByTagName('ownedAttribute'):
             if not 'association' in e.attrs and len(e.getChildByTagName('type')) > 0:
                 self.members.append(JMemberPrimitive(e))
-        self.operations = [JOperation(e) for e in umlnode.getChildByTagName('ownedOperation')]
+        self.operations = [JOperation(e, self) for e in umlnode.getChildByTagName('ownedOperation')]
         self.inherits_from = None
         self.implements = []
         for general in umlnode.getChildByTagName('generalization'):
